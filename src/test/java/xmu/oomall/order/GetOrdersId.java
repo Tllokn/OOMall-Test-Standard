@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class GetOrdersId {
-    @Value("http://${host}:${port}/orders/{id}?userId=9")
+    @Value("http://${host}:${port}/orders/{id}")
     String url;
 
     @Autowired
