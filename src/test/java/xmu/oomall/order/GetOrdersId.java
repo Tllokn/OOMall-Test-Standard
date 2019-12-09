@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import xmu.oomall.domain.Order;
 import xmu.oomall.util.JacksonUtil;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Map;
 
@@ -39,5 +40,11 @@ public class GetOrdersId {
 
         Order order = JacksonUtil.parseObject(response, "data", Order.class);
         assertEquals(999, order.getId());
+        assertEquals(9, order.getUserId());
+        assertEquals("12345", order.getOrderSn());
+        assertEquals("13988888888", order.getMobile());
+        assertEquals("请尽快送达", order.getMessage());
+        assertEquals(BigDecimal.valueOf(182.43), order.getGoodsPrice());
+        assertEquals("123456789", order.getShipSn());
     }
 }
