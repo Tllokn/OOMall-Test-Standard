@@ -28,7 +28,6 @@ public class GetOrdersId {
     @Test
     public void test1() throws Exception{
         /* 登陆 */
-
         URI uri = new URI(url.replace("{id}", "999"));
 
         String response = testRestTemplate.getForObject(uri, String.class);
