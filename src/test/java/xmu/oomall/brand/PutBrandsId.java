@@ -11,7 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import xmu.good.oomall.domain.Brand;
+import xmu.oomall.domain.Brand;
+
 
 import java.net.URI;
 import static org.junit.jupiter.api.Assertions.*;

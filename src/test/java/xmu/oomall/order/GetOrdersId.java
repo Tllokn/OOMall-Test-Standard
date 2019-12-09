@@ -36,8 +36,6 @@ public class GetOrdersId {
         Integer errno = JacksonUtil.parseInteger(response, "errno");
         assertEquals(0, errno);
 
-
-
         Order order = JacksonUtil.parseObject(response, "data", Order.class);
         assertEquals(999, order.getId());
         assertEquals(9, order.getUserId());
