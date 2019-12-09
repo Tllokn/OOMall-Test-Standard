@@ -3,6 +3,8 @@ package xmu.oomall;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -13,7 +15,8 @@ import java.net.URI;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class GetOrders {
-    final static String url = "http://localhost:30020/orders";
+    @Value("http://${host}:${port}/order")
+    String url;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
