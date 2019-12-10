@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class GetOrdersId {
-    @Value("http://${host}:${port}/orders/{id}?userId=9")
+    @Value("http://${host}:${port}/orders/{id}")
     String url;
 
     @Autowired
@@ -28,17 +28,22 @@ public class GetOrdersId {
     @Test
     public void test1() throws Exception{
         /* 登陆 */
+
+        /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "999"));
         HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
+        /*exchange方法模拟HTTP请求*/
         ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
+        /*取得响应体*/
         String body = response.getBody();
         Integer errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errno);
 
+        /*assert判断*/
         Order order = JacksonUtil.parseObject(body, "data", Order.class);
         assertEquals(999, order.getId());
         assertEquals(9, order.getUserId());
