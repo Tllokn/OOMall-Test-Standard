@@ -26,9 +26,6 @@ public class PutBrandsId {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    @Autowired
-    private ObjectMapper mapper;
-
     @Test
     public void test1() throws Exception{
         URI uri = new URI(url.replace("{id}","3"));
