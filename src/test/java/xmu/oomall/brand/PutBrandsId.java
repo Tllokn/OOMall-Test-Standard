@@ -12,7 +12,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import xmu.oomall.domain.Brand;
-
+import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,11 +38,10 @@ public class PutBrandsId {
         HttpHeaders headers = testRestTemplate.headForHeaders(uri);
         HttpEntity<Brand> requestUpdate = new HttpEntity<>(updateInstance, headers);
         ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.PUT, requestUpdate, String.class);
-        JsonNode root = mapper.readTree(response.getBody());
-        JsonNode errno = root.path("errno");
-        JsonNode data = root.path("data");
+        Brand responseInstance = JacksonUtil.parseObject(response.getBody(), "data", Brand.class);
+        Integer errno = JacksonUtil.parseInteger(response.getBody(), "errno");
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(0, errno.asInt());
-        assertEquals(updateInstance, mapper.readValue(data.toString(), Brand.class));
+        assertEquals(0, errno);
+        assertEquals(updateInstance, responseInstance);
     }
 }
