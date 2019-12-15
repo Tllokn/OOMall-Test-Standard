@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import xmu.oomall.domain.Goods;
+import xmu.oomall.domain.Order;
 import xmu.oomall.util.JacksonUtil;
 
 import java.math.BigDecimal;
@@ -28,7 +29,7 @@ public class PostGoods {
 
     @Test
     public void test1() throws Exception{
-        URI uri = new URI(url);
+        /* 准备数据 */
         Goods good=new Goods();
         good.setId(10086);
         good.setGmtCreate(LocalDateTime.now());
@@ -46,16 +47,22 @@ public class PostGoods {
         good.setBeSpecial(false);
         good.setBeDeleted(false);
 
+        /* 设置请求头部 */
+        URI uri = new URI(url.replace("{id}", "1"));
+        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
+        HttpEntity httpEntity = new HttpEntity(good, httpHeaders);
 
-        ResponseEntity<String>responseEntity=testRestTemplate.postForEntity(uri,good,String.class);
-        String result=responseEntity.getBody();
-        String errno=JacksonUtil.parseString(result,"errno");
-        Goods testGoods=JacksonUtil.parseObject(result,"data",Goods.class);
-        String errmsg=JacksonUtil.parseString(result,"errmsg");
+        /* exchange方法模拟HTTP请求 */
+        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        assertEquals("0",errno);
-        assertEquals("成功",errmsg);
-        assertEquals(good,testGoods);
+        /* 取得响应体 */
+        String body = response.getBody();
+        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(0, errno);
 
+        /* assert判断 */
+        Goods testGoods = JacksonUtil.parseObject(body, "data", Goods.class);
+        assertEquals(good, testGoods);
     }
 }
