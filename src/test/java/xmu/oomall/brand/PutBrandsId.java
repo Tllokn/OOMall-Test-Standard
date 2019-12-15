@@ -17,6 +17,9 @@ import xmu.oomall.util.JacksonUtil;
 import java.net.URI;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @Author: 王健
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PutBrandsId {
@@ -28,17 +31,26 @@ public class PutBrandsId {
 
     @Test
     public void test1() throws Exception{
+        // 准备要更新的数据
+        Brand brand = new Brand();
+        brand.setId(3);
+        brand.setName("wjaaa");
+
+        // 设置头部
         URI uri = new URI(url.replace("{id}","3"));
-        Brand updateInstance = new Brand();
-        updateInstance.setId(3);
-        updateInstance.setName("wjaaa");
         HttpHeaders headers = testRestTemplate.headForHeaders(uri);
-        HttpEntity<Brand> requestUpdate = new HttpEntity<>(updateInstance, headers);
+        HttpEntity<Brand> requestUpdate = new HttpEntity<>(brand, headers);
+
+        // 发出http请求
         ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.PUT, requestUpdate, String.class);
-        Brand responseInstance = JacksonUtil.parseObject(response.getBody(), "data", Brand.class);
-        Integer errno = JacksonUtil.parseInteger(response.getBody(), "errno");
         assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        // 取出返回的body
+        Brand responseBrand = JacksonUtil.parseObject(response.getBody(), "data", Brand.class);
+
+        // 比较值是否相等
+        Integer errno = JacksonUtil.parseInteger(response.getBody(), "errno");
         assertEquals(0, errno);
-        assertEquals(updateInstance, responseInstance);
+        assertEquals(brand, responseBrand);
     }
 }
