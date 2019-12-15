@@ -64,5 +64,6 @@ public class PostGoods {
         /* assert判断 */
         Goods testGoods = JacksonUtil.parseObject(body, "data", Goods.class);
         assertEquals(good, testGoods);
+
     }
 }
