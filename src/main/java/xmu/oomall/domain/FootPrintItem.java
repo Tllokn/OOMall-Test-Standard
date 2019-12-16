@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class FootprintItem extends FootprintItemPo {
+public class FootPrintItem extends FootprintItemPo {
 
     private GoodsPo goodsPo;
 }

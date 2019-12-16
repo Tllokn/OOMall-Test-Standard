@@ -1,4 +1,4 @@
-package xmu.ddao.domain.standard;
+package xmu.oomall.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -7,11 +7,6 @@ import lombok.ToString;
 
 import java.util.List;
 
-/**
- * @Author: 数据库与对象模型标准组
- * @Description:订单对象
- * @Data:Created in 14:50 2019/12/11
- **/
 @Getter
 @Setter
 @ToString

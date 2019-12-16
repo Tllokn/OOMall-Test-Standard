@@ -1,4 +1,4 @@
-package xmu.ddao.domain.standard;
+package xmu.oomall.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,14 +23,15 @@ public class Privilege {
      */
     private Integer roleId;
     /**
-     * 访问url地址
-     * eg. /user/{id}
+     * 角色权限
+     * JSON格式:  {"url":xxx, "method":"GET"}
+     * eg.  {"url":"/user/{id}", "method":"GET"}, 表示拥有通过GET方式访问url "/user/{id}"的权限
      */
-    private String url;
+    private String name;
     /**
-     * 访问方式：GET、POST、PUT、DELETE
+     * 角色描述，文字性质的
      */
-    private String method;
+    private String description;
 
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;

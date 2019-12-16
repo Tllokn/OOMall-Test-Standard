@@ -1,4 +1,4 @@
-package xmu.ddao.domain.standard;
+package xmu.oomall.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -41,7 +41,7 @@ public class Ad {
     /**
      * 该广告是否启用
      */
-    private Boolean beEnabled;
+    private Boolean beEnable;
     /**
      * 该广告上线的时间
      */
