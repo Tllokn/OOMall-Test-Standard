@@ -1,4 +1,4 @@
-package xmu.oomall.domain;
+﻿package xmu.ddao.domain.standard;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 @ToString
 @EqualsAndHashCode
 public class Payment {
+
+    
 
     private Integer id;
     /**

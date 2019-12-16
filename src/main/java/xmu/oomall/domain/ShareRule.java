@@ -1,4 +1,4 @@
-package xmu.oomall.domain;
+package xmu.ddao.domain.standard;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,6 +8,11 @@ import lombok.ToString;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * @Author: 数据库与对象模型标准组
+ * @Description:分享规则对象
+ * @Data:Created in 14:50 2019/12/11
+ **/
 @Getter
 @Setter
 @ToString
@@ -15,11 +20,11 @@ import java.util.List;
 public class ShareRule extends ShareRulePo {
     @Getter
     @Setter
-    private class Strategy{
+    public class Strategy{
         private Integer lowerBound;
         private Integer upperBound;
         private BigDecimal discountRate;
     }
     private List<Strategy> strategyList;
-    //TODO:JSON解析
+    private Integer shareType;
 }

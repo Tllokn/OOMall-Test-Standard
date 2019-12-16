@@ -1,5 +1,4 @@
-package xmu.oomall.domain;
-
+package xmu.ddao.domain.standard;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
