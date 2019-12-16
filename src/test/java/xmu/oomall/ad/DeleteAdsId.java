@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.http.ResponseEntity;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
@@ -25,21 +25,23 @@ public class DeleteAdsId {
 
     @Test
     public void test1() throws Exception{
-        URI uri = new URI(url.replace("{id}","3"));
+        /* 设置请求头部*/
+        URI uri = new URI(url.replace("{id}", "1"));
         HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
-        ResponseEntity<String> responseEntity = testRestTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
-        String result = responseEntity.getBody();
-        String errno = JacksonUtil.parseString(result,"errno");
-        String errmsg = JacksonUtil.parseString(result,"errmsg");
+        /*exchange方法模拟HTTP请求*/
+        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        assertEquals("0",errno);
-        assertEquals("成功",errmsg);
+        /*取得响应体*/
+        String body = response.getBody();
+        System.out.println(body);
+        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(0, errno);
 
-        responseEntity = testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
-        result = responseEntity.getBody();
-        errno = JacksonUtil.parseString(result, "errno");
-        assertNotEquals(0, errno);
+        /*assert判断*/
+        String errmsg = JacksonUtil.parseString(body, "errmsg");
+        assertEquals("成功", errmsg);
     }
 }
