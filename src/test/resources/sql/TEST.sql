@@ -672,46 +672,55 @@ INSERT INTO `oomall_special_freight` VALUES
 
 -- oomall_share_item
 
-INSERT INTO `oomall_share_item` VALUES
+INSERT INTO `oomall_share_rule` VALUES
 (
 1001000,
-10126,
+'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},
+{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},
+{"lowerbound":"11", "upperbound":"30", "rate":"1"},
+{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"1"}',
 1006029,
-2,
 '2018-02-01 00:00:00',
-'2018-02-01 00:00:00',
-0
-),
-
-(
-1001001,
-10126,
-1006239,
-2,
-'2018-02-01 00:00:00',
-'2018-02-01 00:00:00',
-0
+0,
+'2018-02-01 00:00:00'
 ),
 
 (
 1001002,
-10126,
-1006002,
-2,
+'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},
+{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},
+{"lowerbound":"11", "upperbound":"30", "rate":"1"},
+{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"0"}',
+1006239,
 '2018-02-01 00:00:00',
-'2018-02-01 00:00:00',
-0
+0,
+'2018-02-01 00:00:00'
 ),
 
 (
 1001003,
-10126,
+'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},
+{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},
+{"lowerbound":"11", "upperbound":"30", "rate":"1"},
+{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"0"}',
+1006002,
+'2018-02-01 00:00:00',
+0,
+'2018-02-01 00:00:00'
+),
+
+(
+1001004,
+'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},
+{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},
+{"lowerbound":"11", "upperbound":"30", "rate":"1"},
+{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"1"}',
 1006019,
-2,
 '2018-02-01 00:00:00',
-'2018-02-01 00:00:00',
-0
-);
+0,
+'2018-02-01 00:00:00'
+)
+;
 
 
 
