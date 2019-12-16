@@ -53,4 +53,48 @@ public class GetOrdersId {
         assertEquals(BigDecimal.valueOf(182.43), order.getGoodsPrice());
         assertEquals("123456789", order.getShipSn());
     }
+
+    /*
+     * @Author: 24320172203217
+     * */
+    @Test
+    /* 本条order被逻辑删除 */
+    public void test2() throws Exception {
+        /* 本条order被逻辑删除 */
+        /* 设置请求头部*/
+        /* 24320172203217 */
+        URI uri = new URI(url.replace("{id}", "110"));
+        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
+        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+
+        /*exchange方法模拟HTTP请求*/
+        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        /*取得响应体*/
+        String body = response.getBody();
+        Integer status = JacksonUtil.parseInteger(body, "status");
+        assertNotEquals(500,status);
+        Order order = JacksonUtil.parseObject(body, "data", Order.class);
+        assertNull(order);
+
+    }
+
+    /*
+     * @Author: 24320172203217
+     * */
+    @Test
+    /* 本条order被逻辑删除 */
+    public void test3() throws Exception {
+        URI uri = new URI(url.replace("{id}", "110"));
+        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
+        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+
+        /*exchange方法模拟HTTP请求*/
+        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        /*取得响应体*/
+        String body = response.getBody();
+        Integer status = JacksonUtil.parseInteger(body, "status");
+        assertNotEquals(500,status);
+        Order order = JacksonUtil.parseObject(body, "data", Order.class);
+        assertNull(order);
+    }
 }

@@ -15,10 +15,6 @@ import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * @Author 学号24320172203139
- * @create 2019/12/16 13:22
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment =SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DeleteOrdersId {
@@ -29,8 +25,11 @@ public class DeleteOrdersId {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+    /*
+    * @Author: 24320172203139
+    * */
     @Test
-    public void deleteOrderTest() throws URISyntaxException {
+    public void test1() throws URISyntaxException {
 
         URI uri=new URI(url.replace("{id}","31392"));
 

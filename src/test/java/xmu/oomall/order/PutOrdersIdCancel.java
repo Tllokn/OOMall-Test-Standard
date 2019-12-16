@@ -31,7 +31,7 @@ public class PutOrdersIdCancel {
     private TestRestTemplate testRestTemplate;
 
     @Test
-    public void getOrderByUserIdTest() throws URISyntaxException {
+    public void test1() throws URISyntaxException {
 
         Order order=new Order();
         order.setStatusCode(1);
