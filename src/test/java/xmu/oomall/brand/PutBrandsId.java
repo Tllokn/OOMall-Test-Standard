@@ -1,8 +1,6 @@
 package xmu.oomall.brand;
 
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,8 @@ import xmu.oomall.domain.Brand;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -35,6 +35,7 @@ public class PutBrandsId {
         Brand brand = new Brand();
         brand.setId(3);
         brand.setName("wjaaa");
+        brand.setGmtModified(LocalDateTime.now());
 
         // 设置头部
         URI uri = new URI(url.replace("{id}","3"));
@@ -53,5 +54,6 @@ public class PutBrandsId {
         assertEquals(0, errno);
         assertEquals(brand.getId(), responseBrand.getId());
         assertEquals(brand.getName(), responseBrand.getName());
+        assertEquals(brand.getGmtModified(), responseBrand.getGmtModified());
     }
 }
