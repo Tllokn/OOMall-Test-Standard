@@ -51,6 +51,7 @@ public class PutBrandsId {
         // 比较值是否相等
         Integer errno = JacksonUtil.parseInteger(response.getBody(), "errno");
         assertEquals(0, errno);
-        assertEquals(brand, responseBrand);
+        assertEquals(brand.getId(), responseBrand.getId());
+        assertEquals(brand.getName(), responseBrand.getName());
     }
 }
