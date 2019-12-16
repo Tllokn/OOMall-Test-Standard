@@ -684,7 +684,6 @@ INSERT INTO `oomall_share_rule` VALUES
 0,
 '2018-02-01 00:00:00'
 ),
-
 (
 1001002,
 '{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},
