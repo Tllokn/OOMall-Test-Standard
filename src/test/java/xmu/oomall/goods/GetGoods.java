@@ -1,14 +1,12 @@
 package xmu.oomall.goods;
-
-import package xmu.oomall.goods.util.JacksonUtil;
 /**
  * @author 24320172203264
  * @version 1.0
  * @date 2019/12/10 20:04
  */
 
-import xmu.oomall.domain.Brand;
-import xmu.oomall.goodsinfo.domain.Goods;
+
+import xmu.oomall.domain.Goods;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.http.ResponseEntity;
+import xmu.oomall.util.JacksonUtil;
+
 import java.net.URI;
 import static org.junit.jupiter.api.Assertions.*;
 

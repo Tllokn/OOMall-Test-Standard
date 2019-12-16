@@ -1,6 +1,5 @@
 package xmu.oomall.goods;
 
-import package xmu.oomall.goods.util.JacksonUtil;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
 
