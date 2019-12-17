@@ -1,0 +1,74 @@
+package xmu.oomall.cart;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.*;
+import org.springframework.test.context.junit4.SpringRunner;
+import xmu.oomall.domain.CartItem;
+import xmu.oomall.util.JacksonUtil;
+
+import java.net.URI;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class GetCart {
+
+    @Value("http://${host}:${port}/cartItems")
+    String url;
+
+    @Autowired
+    private TestRestTemplate testRestTemplate;
+    
+
+    @Test
+    public void test32176() throws Exception
+    {
+        /*24320172203217*/
+
+        URI uri = new URI(url);
+        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
+        httpHeaders.set("userId","-1");
+        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+
+        /*exchange方法模拟HTTP请求*/
+        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        assertNotEquals(HttpStatus.OK, response.getStatusCode());
+
+        String body = response.getBody();
+        Integer status = JacksonUtil.parseInteger(body, "status");
+        assertNotEquals(500,status);
+    }
+    @Test
+    public void test32175() throws Exception
+    {
+        /*24320172203217*/
+
+        URI uri = new URI(url);
+        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
+        httpHeaders.set("userId","10086");
+        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+
+        /*exchange方法模拟HTTP请求*/
+        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        String body = response.getBody();
+        Integer status = JacksonUtil.parseInteger(body, "status");
+        assertNotEquals(500,status);
+        List<String> cartItems = JacksonUtil.parseObject(body,"data",List.class);
+
+        assertNotEquals(cartItems,null);
+        assertEquals(true,cartItems.size() > 0);
+    }
+
+
+}
