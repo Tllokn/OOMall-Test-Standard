@@ -17,11 +17,6 @@ import java.net.URI;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * @author 24320172203264
- * @version 1.0
- * @date 2019/12/11 23:28
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DeleteGoods {
