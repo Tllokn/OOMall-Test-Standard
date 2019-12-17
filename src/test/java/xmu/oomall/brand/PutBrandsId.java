@@ -17,18 +17,19 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * @Author: 王健
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PutBrandsId {
-    @Value("http://${host}:${port}/brands/{id}")
+    @Value("http://${host}:${port}/goodsService/brands/{id}")
     String url;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+    /**
+     * 标准组样例
+     * @throws Exception
+     */
     @Test
     public void test1() throws Exception{
         // 准备要更新的数据
@@ -37,7 +38,7 @@ public class PutBrandsId {
         brand.setName("wjaaa");
         brand.setGmtModified(LocalDateTime.now());
 
-        // 设置头部
+        // 设置头部，未设置登陆
         URI uri = new URI(url.replace("{id}","3"));
         HttpHeaders headers = testRestTemplate.headForHeaders(uri);
         HttpEntity<Brand> requestUpdate = new HttpEntity<>(brand, headers);
