@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PostLogin {
 
-    @Value("http://${host}:${port}/login")
+    @Value("http://${host}:${port}/userService/login")
     String url;
 
     @Autowired
