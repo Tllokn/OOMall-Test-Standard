@@ -4,6 +4,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import xmu.oomall.domain.FootprintItemPo;
+import xmu.oomall.domain.Goods;
 
 /**
  * @Author: 数据库与对象模型标准组
@@ -16,5 +18,5 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class FootprintItem extends FootprintItemPo {
 
-    private GoodsPo goodsPo;
+    private Goods goodsPo;
 }
