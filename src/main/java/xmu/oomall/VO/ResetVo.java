@@ -7,6 +7,7 @@ package xmu.oomall.VO;
  */
 public class ResetVo {
     private String telephone;
+
     private String password;
     /**
      * 验证码

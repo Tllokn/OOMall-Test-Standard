@@ -37,7 +37,7 @@ public class DeleteOrdersId {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
-        String body=  responseEntity.getBody();
+        String body = responseEntity.getBody();
 
         Integer errno= JacksonUtil.parseInteger(body,"errno");
         assertEquals(0,errno);
