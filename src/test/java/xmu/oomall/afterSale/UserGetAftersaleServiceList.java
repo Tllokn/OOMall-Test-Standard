@@ -8,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import xmu.ddao.domain.standard.AftersalesService;
-import xmu.ddao.util.JacksonUtil;
+import xmu.oomall.domain.AftersalesService;
+import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
 import java.util.LinkedList;
