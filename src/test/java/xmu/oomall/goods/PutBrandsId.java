@@ -1,4 +1,4 @@
-package xmu.oomall.brand;
+package xmu.oomall.goods;
 
 
 import org.junit.Test;
