@@ -1,0 +1,7 @@
+oomall:
+  host:localhost
+  port:0000
+  user:test
+  password:123456
+  adimuser:test1
+  adminpassword:123456

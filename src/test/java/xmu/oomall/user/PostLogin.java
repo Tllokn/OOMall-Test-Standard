@@ -9,7 +9,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import xmu.oomall.VO.LoginVo;
+import xmu.oomall.vo.LoginVo;
 import xmu.oomall.domain.User;
 import xmu.oomall.util.JacksonUtil;
 

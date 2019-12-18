@@ -8,26 +8,41 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import xmu.oomall.test.AdminAccount;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DeleteAdsId {
-    @Value("http://${host}:${port}/ads/{id}")
+    @Value("http://${oomall.host}:${oomall.host}/ads/{id}")
     String url;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+    @Autowired
+    private AdminAccount adminAccount;
+
+    private HttpHeaders getHttpHeaders(URI uri) throws URISyntaxException {
+        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
+        if (!adminAccount.addToken(httpHeaders)) {
+            //登录失败
+            assertTrue(false);
+        }
+        return httpHeaders;
+    }
+
     @Test
     public void test1() throws Exception{
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "1"));
-        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
+        HttpHeaders httpHeaders = getHttpHeaders(uri);
+
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         /*exchange方法模拟HTTP请求*/
@@ -43,4 +58,6 @@ public class DeleteAdsId {
         String errmsg = JacksonUtil.parseString(body, "errmsg");
         assertEquals("成功", errmsg);
     }
+
+
 }

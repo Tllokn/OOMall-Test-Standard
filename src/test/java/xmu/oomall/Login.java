@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
-import xmu.oomall.VO.LoginVo;
+import xmu.oomall.vo.LoginVo;
 
 import java.net.URI;
 import java.util.List;

@@ -15,7 +15,6 @@
         <relativePath/>
     </parent>
 
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -31,6 +30,10 @@
         <dependency>
             <groupId>xmu.oomall</groupId>
             <artifactId>domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
         </dependency>
 
     </dependencies>
