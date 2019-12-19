@@ -992,7 +992,7 @@ INSERT INTO `oomall_coupon` VALUES
 	'2019-12-19 00:00:00',
 	'2020-01-01 00:00:00',
 	null,
-	'满100减5',
+	'满1件减10.01',
 	'https://l.xmu.edu.cn/mod/forum/discuss.php?d=6453',
 	'2018-02-01 00:00:00',
 	'2018-02-01 00:00:00',
@@ -1007,7 +1007,7 @@ INSERT INTO `oomall_coupon` VALUES
 	'2019-12-19 00:00:00',
 	'2020-01-01 00:00:00',
 	null,
-	'满1000减50',
+	'满100减5',
 	'https://l.xmu.edu.cn/mod/forum/discuss.php',
 	'2018-02-01 00:00:00',
 	'2018-02-01 00:00:00',
@@ -1022,7 +1022,7 @@ INSERT INTO `oomall_coupon` VALUES
 	'2019-12-19 00:00:00',
 	'2020-01-01 00:00:00',
 	null,
-	'满1000减100',
+	'满150打8.8折',
 	'https://l.xmu.edu.cn/mod/forum/discuss',
 	'2018-02-01 00:00:00',
 	'2018-02-01 00:00:00',
@@ -1037,13 +1037,14 @@ INSERT INTO `oomall_coupon` VALUES
 INSERT INTO `oomall_coupon_rule` VALUES
 (
     1,
-	'满100减5',
+	'满1件减10.01',
 	'超值的优惠券',
 	'2019-12-19 00:00:00',
 	'2020-01-01 00:00:00',
+	1,
 	'https://l.xmu.edu.cn/mod/forum/discuss.php?d=6453',
-	12,
-	'{"name":"xmu.oomall.discount.domain.DiscountStrategy.NumberStrategy", "obj":{"threshold":100, "offCash":5}}',
+	13,
+	'{"name":"NumberStrategy", "obj":{"threshold":1, "offCash":10.01}}',
 	100,
 	20,
 	'{"goodsIds": [1006002, 1006003, 1006019]}',
@@ -1054,13 +1055,14 @@ INSERT INTO `oomall_coupon_rule` VALUES
 ),
 (
     2,
-	'满1000减50',
+	'满100减5',
 	'超值的优惠券',
 	'2019-12-19 00:00:00',
 	'2020-01-01 00:00:00',
+	1,
 	'https://l.xmu.edu.cn/mod/forum/discuss.php?d=6453',
-	12,
-	'{"name":"xmu.oomall.discount.domain.DiscountStrategy.NumberStrategy", "obj":{"threshold":1000, "offCash":50}}',
+	13,
+	'{"name":"CashOffStrategy", "obj":{"threshold":100, "offCash":5}}',
 	100,
 	30,
 	'{"goodsIds": [1006002, 1006003, 1006239]}',
@@ -1071,13 +1073,14 @@ INSERT INTO `oomall_coupon_rule` VALUES
 ),
 (
     3,
-	'满1000减100',
+	'满150打8.8折',
 	'超值的优惠券',
 	'2019-12-19 00:00:00',
 	'2020-01-01 00:00:00',
+	1,
 	'https://l.xmu.edu.cn/mod/forum/discuss.php?d=6453',
-	12,
-	'{"name":"xmu.oomall.discount.domain.DiscountStrategy.NumberStrategy", "obj":{"threshold":1000, "offCash":100}}',
+	13,
+	'{"name":"PercentageStrategy", "obj":{"threshold":150, "percentage":0.88}}',
 	100,
 	20,
 	'{"goodsIds": [1006002, 1006003, 1006019]}',
@@ -1086,7 +1089,6 @@ INSERT INTO `oomall_coupon_rule` VALUES
 	'2018-02-01 00:00:00',
 	0
 );
-
 
 
 -- oomall_groupon_rule
