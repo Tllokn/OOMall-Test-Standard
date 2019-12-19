@@ -1,9 +1,6 @@
 package xmu.oomall.test;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import xmu.oomall.vo.LoginVo;
 
@@ -34,7 +31,10 @@ public abstract class BaseAccount {
         loginVo.setPassword(this.getPassword());
 
         URI uri = new URI(this.getUrl());
-        HttpHeaders httpHeaders = this.getRestTemplate().headForHeaders(uri);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        MediaType type = MediaType.parseMediaType("application/json;charset=UTF-8");
+        httpHeaders.setContentType(type);
+
         HttpEntity httpEntity = new HttpEntity(loginVo, httpHeaders);
 
         ResponseEntity<String> response = this.getRestTemplate().postForEntity(uri, httpEntity, String.class);
