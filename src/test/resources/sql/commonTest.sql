@@ -675,21 +675,16 @@ INSERT INTO `oomall_special_freight` VALUES
 INSERT INTO `oomall_share_rule` VALUES
 (
 1001000,
-'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},
-{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},
-{"lowerbound":"11", "upperbound":"30", "rate":"1"},
-{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"1"}',
+'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},{"lowerbound":"11", "upperbound":"30", "rate":"1"},{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"1"}',
 1006029,
 '2018-02-01 00:00:00',
 0,
 '2018-02-01 00:00:00'
 ),
+
 (
 1001002,
-'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},
-{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},
-{"lowerbound":"11", "upperbound":"30", "rate":"1"},
-{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"0"}',
+'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},{"lowerbound":"11", "upperbound":"30", "rate":"1"},{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"0"}',
 1006239,
 '2018-02-01 00:00:00',
 0,
@@ -698,10 +693,7 @@ INSERT INTO `oomall_share_rule` VALUES
 
 (
 1001003,
-'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},
-{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},
-{"lowerbound":"11", "upperbound":"30", "rate":"1"},
-{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"0"}',
+'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},{"lowerbound":"11", "upperbound":"30", "rate":"1"},{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"0"}',
 1006002,
 '2018-02-01 00:00:00',
 0,
@@ -710,10 +702,7 @@ INSERT INTO `oomall_share_rule` VALUES
 
 (
 1001004,
-'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},
-{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},
-{"lowerbound":"11", "upperbound":"30", "rate":"1"},
-{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"1"}',
+'{"strategy": [{"lowerbound":"0", "upperbound":"1", "rate":"0.5"},{"lowerbound":"2", "upperbound":"10", "rate":"0.7"},{"lowerbound":"11", "upperbound":"30", "rate":"1"},{"lowerbound":"31", "upperbound":"100", "rate":"1.5"}],"type":"1"}',
 1006019,
 '2018-02-01 00:00:00',
 0,
@@ -731,7 +720,7 @@ INSERT INTO `oomall_topic` VALUES
 '2018-02-01 00:00:00',
 '2018-02-01 00:00:00',
 0,
-'https://img.alicdn.com/tfs/TB1gWplnxtnkeRjSZSgXXXAuXXa-150-150.jpg',
+'{"pictures":[https://img.alicdn.com/tfs/TB1gWplnxtnkeRjSZSgXXXAuXXa-150-150.jpg]}',
 '音响品牌日 天猫精灵限时优惠'
 ),
 
@@ -740,7 +729,7 @@ INSERT INTO `oomall_topic` VALUES
 '2018-02-01 00:00:00',
 '2018-02-01 00:00:00',
 0,
-'https://img.alicdn.com/tfs/TB1BV5De9f2gK0jSZFPXXXsopXa-150-150.jpg',
+'{"pictures":[https://img.alicdn.com/tfs/TB1BV5De9f2gK0jSZFPXXXsopXa-150-150.jpg]}',
 '学生装备 精选好物'
 ),
 
@@ -749,7 +738,7 @@ INSERT INTO `oomall_topic` VALUES
 '2018-02-01 00:00:00',
 '2018-02-01 00:00:00',
 0,
-'https://img.alicdn.com/tfs/TB1BV5De9f2gK0jSZFPXXXsopXa-150-150.jpg',
+'{"pictures":[https://img.alicdn.com/tfs/TB1BV5De9f2gK0jSZFPXXXsopXa-150-150.jpg]}',
 '手机馆 iPhone新品'
 ),
 
@@ -758,7 +747,7 @@ INSERT INTO `oomall_topic` VALUES
 '2018-02-01 00:00:00',
 '2018-02-01 00:00:00',
 0,
-'https://img.alicdn.com/tfs/TB1jLf0fHj1gK0jSZFOXXc7GpXa-150-150.jpg',
+'{"pictures":[https://img.alicdn.com/tfs/TB1jLf0fHj1gK0jSZFOXXc7GpXa-150-150.jpg]}',
 '礼品馆 节日礼品精选'
 )
 ;
