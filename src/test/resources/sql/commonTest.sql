@@ -720,7 +720,7 @@ INSERT INTO `oomall_topic` VALUES
 '2018-02-01 00:00:00',
 '2018-02-01 00:00:00',
 0,
-'{"pictures":[https://img.alicdn.com/tfs/TB1gWplnxtnkeRjSZSgXXXAuXXa-150-150.jpg]}',
+'{"pictures":["https://img.alicdn.com/tfs/TB1gWplnxtnkeRjSZSgXXXAuXXa-150-150.jpg"]}',
 '音响品牌日 天猫精灵限时优惠'
 ),
 
@@ -729,7 +729,7 @@ INSERT INTO `oomall_topic` VALUES
 '2018-02-01 00:00:00',
 '2018-02-01 00:00:00',
 0,
-'{"pictures":[https://img.alicdn.com/tfs/TB1BV5De9f2gK0jSZFPXXXsopXa-150-150.jpg]}',
+'{"pictures":["https://img.alicdn.com/tfs/TB1BV5De9f2gK0jSZFPXXXsopXa-150-150.jpg"]}',
 '学生装备 精选好物'
 ),
 
@@ -738,7 +738,7 @@ INSERT INTO `oomall_topic` VALUES
 '2018-02-01 00:00:00',
 '2018-02-01 00:00:00',
 0,
-'{"pictures":[https://img.alicdn.com/tfs/TB1BV5De9f2gK0jSZFPXXXsopXa-150-150.jpg]}',
+'{"pictures":["https://img.alicdn.com/tfs/TB1BV5De9f2gK0jSZFPXXXsopXa-150-150.jpg"]}',
 '手机馆 iPhone新品'
 ),
 
@@ -747,7 +747,7 @@ INSERT INTO `oomall_topic` VALUES
 '2018-02-01 00:00:00',
 '2018-02-01 00:00:00',
 0,
-'{"pictures":[https://img.alicdn.com/tfs/TB1jLf0fHj1gK0jSZFOXXc7GpXa-150-150.jpg]}',
+'{"pictures":["https://img.alicdn.com/tfs/TB1jLf0fHj1gK0jSZFOXXc7GpXa-150-150.jpg"]}',
 '礼品馆 节日礼品精选'
 )
 ;
