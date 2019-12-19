@@ -1,4 +1,4 @@
-package xmu.oomall.goods;
+package xmu.oomall.publictest.goods;
 
 import org.junit.runner.RunWith;
 import org.junit.Test;
@@ -17,25 +17,20 @@ import java.net.URI;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * @author 24320172203264
- * @version 1.0
- * @date 2019/12/11 23:28
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DeleteGoodsCategory {
+public class DeleteGoods {
 
-    @Value("http://${host}:${port}/goodsService/categories/{id}")
+    @Value("http://${host}:${port}/goods/{id}")
     String url;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Test
-    public void test12163() throws Exception
+    public void test12165() throws Exception
     {
-        URI uri = new URI(url.replace("{id}","2"));
+        URI uri = new URI(url.replace("{id}","1006002"));
 
         ResponseEntity<String> responseEntity = testRestTemplate.exchange(uri, HttpMethod.DELETE, null, String.class);
         String result = responseEntity.getBody();
@@ -46,9 +41,8 @@ public class DeleteGoodsCategory {
         assertEquals("成功",errmsg);
 
     }
-
-@Test
-    public void test12164() throws Exception
+ @Test
+    public void test12167() throws Exception
     {
         URI uri = new URI(url.replace("{id}","0"));
         HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
@@ -62,24 +56,6 @@ public class DeleteGoodsCategory {
 
         assertEquals("402",errno);
         assertEquals("参数值不对",errmsg);
-
-    }
-@Test
-    public void test12165() throws Exception
-    {
-        URI uri = new URI(url.replace("{id}","1"));
-        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
-        HttpEntity httpEntity = new HttpEntity(httpHeaders);
-
-        ResponseEntity<String> responseEntity = testRestTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
-        String result = responseEntity.getBody();
-        String errno = JacksonUtil.parseString(result,"errno");
-        String data=JacksonUtil.parseString(result,"data");
-        String errmsg = JacksonUtil.parseString(result,"errmsg");
-
-        assertEquals("0",errno);
-        assertEquals("null",data);
-        assertEquals("正确",errmsg);
 
     }
 }

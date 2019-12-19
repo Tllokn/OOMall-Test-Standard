@@ -1,4 +1,4 @@
-package xmu.oomall.topic;
+package xmu.oomall.publictest.topic;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

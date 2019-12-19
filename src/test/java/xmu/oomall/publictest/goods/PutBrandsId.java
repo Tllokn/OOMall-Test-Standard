@@ -1,4 +1,4 @@
-package xmu.oomall.goods;
+package xmu.oomall.publictest.goods;
 
 
 import org.junit.Test;

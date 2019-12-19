@@ -1,7 +1,6 @@
-package xmu.oomall.ad;
+package xmu.oomall.publictest.ad;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +15,9 @@ import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author
+ */
 @SpringBootTest
 public class AdsId {
     @Value("http://${oomall.host}:${oomall.host}/adService/ads/{id}")

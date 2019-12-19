@@ -1,4 +1,4 @@
-package xmu.oomall.address;
+package xmu.oomall.publictest.address;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package xmu.oomall.goods;
+package xmu.oomall.publictest.goods;
 
 import package xmu.oomall.goods.util.JacksonUtil;
 
@@ -8,7 +8,6 @@ import package xmu.oomall.goods.util.JacksonUtil;
  * @date 2019/12/10 20:04
  */
 
-import xmu.oomall.domain.Brand;
 import cxmu.oomall.domain.GoodsCategory;
 import org.junit.runner.RunWith;
 import org.junit.Test;

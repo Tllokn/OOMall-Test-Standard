@@ -1,4 +1,4 @@
-package xmu.oomall.user;
+package xmu.oomall.publictest.user;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package xmu.oomall.order;
+package xmu.oomall.publictest.order;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

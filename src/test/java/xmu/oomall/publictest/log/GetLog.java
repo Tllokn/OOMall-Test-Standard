@@ -1,4 +1,4 @@
-package xmu.oomall.log;
+package xmu.oomall.publictest.log;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

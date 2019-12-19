@@ -1,4 +1,4 @@
-package xmu.oomall;
+package xmu.oomall.publictest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

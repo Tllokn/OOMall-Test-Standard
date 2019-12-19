@@ -1,12 +1,13 @@
-package xmu.oomall.goods;
+package xmu.oomall.publictest.goods;
+
+
 /**
- * @author 24320172203264
+ * @author 24320172203187
  * @version 1.0
  * @date 2019/12/10 20:04
  */
 
-
-import xmu.oomall.domain.Goods;
+import xmu.oomall.domain.Brand;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +24,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GetGoods {
-    @Value("http://${host}:${port}/goods/{id}")
+public class GetBrand {
+    @Value("http://${host}:${port}/brands/{id}")
     String url;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Test
-    public void test12171() throws Exception{
-        URI uri = new URI(url.replace("{id}","1006019"));
+    public void test12168() throws Exception{
+        URI uri = new URI(url.replace("{id}","1001007"));
         HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
@@ -46,17 +47,16 @@ public class GetGoods {
         Integer errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errno);
 
-        Goods goods =JacksonUtil.parseObject(body,"data",Goods.class);
-        assertEquals(1006019,goods.getId());
-        assertEquals("大自然的搬运工",goods.getBrief());
-        assertEquals("大自然的搬运工",goods.getDescription());
-        assertEquals("1127052",goods.getGoodsSn());
-        assertEquals("农夫山泉",goods.getName());
-        assertEquals("http://yanxuan.nosdn.127.net/4eb09e08ac9de543d2291d27a6be0b54.jpg/",goods.getPicUrl());
+        Brand brand=JacksonUtil.parseObject(body,"data",Brand.class);
+        assertEquals(1001007,brand.getId());
+        assertEquals("优衣库制造商",brand.getName());
+        assertEquals("http://yanxuan.nosdn.127.net/0d72832e37e7e3ea391b519abbbc95a3.png",brand.getPicUrl());
+        assertEquals("严选找到日本知名服装UNIQLO的制造商，\n" +
+                "选取优质长绒棉和精梳工艺，\n" +
+                "与厂方一起设计，为你提供理想的棉袜。",brand.getDescription());
     }
-
- @Test
-    public void test12172() throws Exception
+    @Test
+    public void test12169() throws Exception
     {
         URI uri = new URI(url.replace("{id}","1"));
         HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
@@ -73,8 +73,9 @@ public class GetGoods {
         assertEquals("成功",errmsg);
 
     }
-@Test
-    public void test12173() throws Exception
+
+    @Test
+    public void test12170() throws Exception
     {
         URI uri = new URI(url.replace("{id}","0"));
         HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);

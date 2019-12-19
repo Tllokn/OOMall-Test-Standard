@@ -1,4 +1,4 @@
-package xmu.oomall.cart;
+package xmu.oomall.publictest.cart;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,35 +8,51 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import xmu.oomall.domain.CartItem;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import xmu.oomall.util.JacksonUtil;
 
+
 import java.net.URI;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GetCart {
-
-    @Value("http://${host}:${port}/cartItems")
+public class GetCartId {
+    @Value("http://${host}:${port}/cartItems/{id}")
     String url;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
-    
+
 
     @Test
-    public void test32176() throws Exception
+    public void test32173() throws Exception
     {
+        /*查询正常购物车*/
         /*24320172203217*/
 
-        URI uri = new URI(url);
+        URI uri = new URI(url.replace("{id}", "1"));
         HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
-        httpHeaders.set("userId","-1");
+        httpHeaders.set("userId","10086");
+        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+
+        /*exchange方法模拟HTTP请求*/
+        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+    }
+    @Test
+    public void test32174() throws Exception
+    {
+        /*查询其非个人的购物车(非法查询购物车项)*/
+        /*24320172203217*/
+
+        URI uri = new URI(url.replace("{id}", "1"));
+        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
+        httpHeaders.set("userId","10");
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         /*exchange方法模拟HTTP请求*/
@@ -46,29 +62,9 @@ public class GetCart {
         String body = response.getBody();
         Integer status = JacksonUtil.parseInteger(body, "status");
         assertNotEquals(500,status);
+
+
+
     }
-    @Test
-    public void test32175() throws Exception
-    {
-        /*24320172203217*/
-
-        URI uri = new URI(url);
-        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
-        httpHeaders.set("userId","10086");
-        HttpEntity httpEntity = new HttpEntity(httpHeaders);
-
-        /*exchange方法模拟HTTP请求*/
-        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        String body = response.getBody();
-        Integer status = JacksonUtil.parseInteger(body, "status");
-        assertNotEquals(500,status);
-        List<String> cartItems = JacksonUtil.parseObject(body,"data",List.class);
-
-        assertNotEquals(cartItems,null);
-        assertEquals(true,cartItems.size() > 0);
-    }
-
 
 }
