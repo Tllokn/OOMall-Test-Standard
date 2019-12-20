@@ -42,24 +42,36 @@ public class RegisterTest {
     @Test
     public void tc_Register_001() throws Exception {
 
+        HttpHeaders httpHeaders = adtUserAccount.createHeaders();
+        HttpEntity<String> captEntity = new HttpEntity<>("1299988", httpHeaders);
+
+        URI uri = new URI(baseUrl + "/captcha");
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, captEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        String body = response.getBody();
+        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(0, errno);
+        String code = JacksonUtil.parseString(body, "data");
+
         /* 准备数据 */
         UserRegisterVo user = new UserRegisterVo();
         user.setUsername("10086");
         user.setPassword("10086");
         user.setTelephone("1299988");
+        user.setCode(code);
 
         /* 设置请求头部 */
-        URI uri = new URI(url);
-        HttpHeaders httpHeaders = adtUserAccount.createHeaders();
+        uri = new URI(url);
+
         HttpEntity<UserRegisterVo> httpEntity = new HttpEntity<>(user, httpHeaders);
 
         /* exchange方法模拟HTTP请求 */
-        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
+        response = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         /*取得响应体*/
-        String body = response.getBody();
-        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        body = response.getBody();
+        errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errno);
 
         /* assert判断 */
