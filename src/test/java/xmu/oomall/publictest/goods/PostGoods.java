@@ -37,7 +37,7 @@ public class PostGoods {
         good.setShortName("山泉");
         good.setDescription("大自然的搬运工");
         good.setBrief("可以喝");
-        good.setStatusCode(false);
+        good.setStatusCode(0);
         good.setGoodsCategoryId(1009);
         good.setBrandId(10086);
         good.setWeight(new BigDecimal(100.05));

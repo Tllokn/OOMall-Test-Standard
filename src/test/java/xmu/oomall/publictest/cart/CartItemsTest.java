@@ -2,15 +2,13 @@ package xmu.oomall.publictest.cart;
 
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
-import org.springframework.test.context.junit4.SpringRunner;
 import xmu.oomall.domain.CartItem;
-import xmu.oomall.test.UserAccount;
+import xmu.oomall.publictest.UserAccount;
 import xmu.oomall.util.JacksonUtil;
 
 
@@ -26,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author
  */
 @SpringBootTest
-public class CartItems {
+public class CartItemsTest {
 
 
     @Value("http://${oomall.host}:${oomall.port}/cartService/cartItems")
@@ -38,13 +36,14 @@ public class CartItems {
     @Autowired
     private UserAccount userAccount;
 
-    private HttpHeaders getHttpHeaders(URI uri) throws URISyntaxException {
-        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
-        if (!userAccount.addToken(httpHeaders)) {
+    private HttpHeaders getHttpHeaders() throws URISyntaxException {
+        HttpHeaders headers = userAccount.createHeaderWithToken();
+        System.out.println("Generated Header = " + headers);
+        if (headers == null) {
             //登录失败
             assertTrue(false);
         }
-        return httpHeaders;
+        return headers;
     }
 
     /**
@@ -55,7 +54,7 @@ public class CartItems {
     public void tc_CartItems_001() throws Exception{
 
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = this.getHttpHeaders(uri);
+        HttpHeaders httpHeaders = this.getHttpHeaders();
 
         CartItem cartItem = new CartItem();
         cartItem.setBeCheck(false);

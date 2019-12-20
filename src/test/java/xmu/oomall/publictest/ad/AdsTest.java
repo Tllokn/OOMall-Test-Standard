@@ -1,13 +1,15 @@
 package xmu.oomall.publictest.ad;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import xmu.oomall.PublicTestApplication;
 import xmu.oomall.domain.Ad;
-import xmu.oomall.test.AdminAccount;
+import xmu.oomall.publictest.AdminAccount;
+import xmu.oomall.publictest.PublicTestConfig;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
@@ -20,8 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author
  */
-@SpringBootTest
-public class Ads {
+@SpringBootTest(classes = PublicTestApplication.class)
+public class AdsTest {
+
     @Value("http://${oomall.host}:${oomall.port}/adService/ads")
     String url;
 
@@ -31,13 +34,14 @@ public class Ads {
     @Autowired
     private AdminAccount adminAccount;
 
-    private HttpHeaders getHttpHeaders(URI uri) throws URISyntaxException {
-        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
-        if (!adminAccount.addToken(httpHeaders)) {
+    private HttpHeaders getHttpHeaders() throws URISyntaxException {
+        HttpHeaders headers = adminAccount.createHeaderWithToken();
+        System.out.println("Generated Header = " + headers);
+        if (headers == null) {
             //登录失败
             assertTrue(false);
         }
-        return httpHeaders;
+        return headers;
     }
 
     /**
@@ -65,17 +69,17 @@ public class Ads {
         ad.setGmtModified(LocalDateTime.now());
 
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders(uri);
+        HttpHeaders httpHeaders = this.getHttpHeaders();
         HttpEntity httpEntity = new HttpEntity<>(ad, httpHeaders);
 
         ResponseEntity<String> responseEntity=testRestTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
-        assertEquals(responseEntity.getStatusCode(), HttpStatus.ACCEPTED);
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
 
         String result=responseEntity.getBody();
-        String errno= JacksonUtil.parseString(result,"errno");
+        Integer errno= JacksonUtil.parseInteger(result,"errno");
         Ad testAd=JacksonUtil.parseObject(result,"data",Ad.class);
 
-        assertEquals("0",errno);
+        assertEquals(0,errno);
         assertEquals(ad.getLink(),testAd.getLink());
         assertEquals(ad.getName(),testAd.getName());
         assertEquals(ad.getContent(),testAd.getContent());
@@ -106,11 +110,14 @@ public class Ads {
         ad.setGmtCreate(LocalDateTime.now());
         ad.setGmtModified(LocalDateTime.now());
 
-        ResponseEntity<String> responseEntity=testRestTemplate.postForEntity(uri,ad,String.class);
+        HttpHeaders httpHeaders = adminAccount.createHeaders();
+        HttpEntity httpEntity = new HttpEntity<>(ad, httpHeaders);
+
+        ResponseEntity<String> responseEntity=testRestTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         String result=responseEntity.getBody();
         Integer errno= JacksonUtil.parseInteger(result,"errno");
-        assertEquals(666,errno);
+        assertEquals(666,errno); //用户无权限
     }
 }

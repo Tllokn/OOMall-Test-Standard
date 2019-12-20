@@ -1,4 +1,4 @@
-package xmu.oomall.test;
+package xmu.oomall.publictest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,15 +11,15 @@ import org.springframework.web.client.RestTemplate;
  * @date 2019/12/18
  */
 @Component
-public class AdminAccount extends BaseAccount {
+public class UserAccount extends BaseAccount {
 
     @Value("http://${oomall.host}:${oomall.port}/userInfoService/login")
     private String url;
 
-    @Value("${oomall.adminuser}")
+    @Value("${oomall.user}")
     private String userName;
 
-    @Value("${oomall.adminpassword}")
+    @Value("${oomall.password}")
     private String password;
 
     @Autowired

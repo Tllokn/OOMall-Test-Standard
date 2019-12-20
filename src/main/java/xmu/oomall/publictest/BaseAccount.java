@@ -1,4 +1,4 @@
-package xmu.oomall.test;
+package xmu.oomall.publictest;
 
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -25,18 +25,13 @@ public abstract class BaseAccount {
      * 登录服务器，获取JWT Token
      * @return 登录成功与否
      */
-    private boolean getToken() throws URISyntaxException {
+    private boolean getToken(HttpHeaders httpHeaders) throws URISyntaxException {
         LoginVo loginVo = new LoginVo();
         loginVo.setUsername(this.getUserName());
         loginVo.setPassword(this.getPassword());
 
         URI uri = new URI(this.getUrl());
-        HttpHeaders httpHeaders = new HttpHeaders();
-        MediaType type = MediaType.parseMediaType("application/json;charset=UTF-8");
-        httpHeaders.setContentType(type);
-
         HttpEntity httpEntity = new HttpEntity(loginVo, httpHeaders);
-
         ResponseEntity<String> response = this.getRestTemplate().postForEntity(uri, httpEntity, String.class);
         if (response.getStatusCode() == HttpStatus.OK){
             this.token = response.getHeaders().get("authorization").get(0);
@@ -47,18 +42,32 @@ public abstract class BaseAccount {
     }
 
     /**
-     * 在包头上加上JWT Token
-     * @param headers 包头
-     * @return 成功与否
+     * 创建一个无JWT Token的包头
+     * @return 包头
+     * @throws URISyntaxException
      */
-    public boolean addToken(HttpHeaders headers) throws URISyntaxException {
-        boolean retVal = true;
-        if (this.token == ""){
-            retVal = this.getToken();
+    public HttpHeaders createHeaders() throws URISyntaxException {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        MediaType type = MediaType.parseMediaType("application/json;charset=UTF-8");
+        httpHeaders.setContentType(type);
+        return httpHeaders;
+    }
+
+    /**
+     * 在获得有JWT Token的包头
+     * @return 包头
+     */
+    public HttpHeaders createHeaderWithToken() throws URISyntaxException {
+        HttpHeaders headers = this.createHeaders();
+        if (this.token == "") {
+            this.getToken(headers);
         }
-        if (retVal){
-            headers.add("authorization", token);
+        if (this.token != ""){
+            headers.add("authorization", this.token);
+            return headers;
+        } else{
+            return null;
         }
-        return retVal;
+
     }
 }

@@ -1,4 +1,4 @@
-package xmu.oomall.test;
+package xmu.oomall.publictest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,20 +6,25 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * 可以修改用户名和密码的用户
- * @auther mingqiu
- * @date 2019/12/19 下午5:53
+ * 普通用户帐号
+ * @author  Ming Qiu
+ * @date 2019/12/18
  */
 @Component
-public class AdtUserAccount extends BaseAccount{
+public class AdminAccount extends BaseAccount {
+
+    @Value("http://${oomall.host}:${oomall.port}/userInfoService/admin/login")
+    private String url;
+
+    @Value("${oomall.adminuser}")
+    private String userName;
+
+    @Value("${oomall.adminpassword}")
+    private String password;
+
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("http://${oomall.host}:${oomall.port}/userInfoService/login")
-    private String url;
-
-    private String userName;
-    private String password;
 
     @Override
     protected String getUserName() {
@@ -39,13 +44,5 @@ public class AdtUserAccount extends BaseAccount{
     @Override
     protected RestTemplate getRestTemplate() {
         return this.restTemplate;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

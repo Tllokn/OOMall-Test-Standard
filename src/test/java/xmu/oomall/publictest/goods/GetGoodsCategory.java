@@ -1,6 +1,6 @@
 package xmu.oomall.publictest.goods;
 
-import package xmu.oomall.goods.util.JacksonUtil;
+import xmu.oomall.util.JacksonUtil;
 
 /**
  * @author 24320172203264
@@ -8,8 +8,7 @@ import package xmu.oomall.goods.util.JacksonUtil;
  * @date 2019/12/10 20:04
  */
 
-import cxmu.oomall.domain.GoodsCategory;
-import org.junit.runner.RunWith;
+import xmu.oomall.domain.GoodsCategory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,8 +20,8 @@ import org.springframework.http.ResponseEntity;
 import java.net.URI;
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
+
+@SpringBootTest
 public class GetGoodsCategory {
     @Value("http://${host}:${port}/categories/{id}")
     String url;

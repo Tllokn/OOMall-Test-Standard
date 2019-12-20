@@ -5,12 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import xmu.oomall.domain.AddressPo;
-import xmu.oomall.test.AdminAccount;
+import xmu.oomall.publictest.AdminAccount;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
@@ -21,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-public class Address {
+public class AddressTest {
     @Value("http://${oomall.host}:${oomall.port}/addressService/addresses")
     String url;
 
@@ -31,13 +28,14 @@ public class Address {
     @Autowired
     private AdminAccount adminAccount;
 
-    private HttpHeaders getHttpHeaders(URI uri) throws URISyntaxException {
-        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
-        if (!adminAccount.addToken(httpHeaders)) {
+    private HttpHeaders getHttpHeaders() throws URISyntaxException {
+        HttpHeaders headers = adminAccount.createHeaderWithToken();
+        System.out.println("Generated Header = " + headers);
+        if (headers == null) {
             //登录失败
             assertTrue(false);
         }
-        return httpHeaders;
+        return headers;
     }
 
     @Test
@@ -57,10 +55,11 @@ public class Address {
         addressPo.setGmtModified(LocalDateTime.now());
 
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders(uri);
+        HttpHeaders httpHeaders = getHttpHeaders();
         HttpEntity httpEntity = new HttpEntity<>(addressPo, httpHeaders);
 
         ResponseEntity<String> responseEntity=testRestTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
+        assertEquals(HttpStatus.CREATED,responseEntity.getStatusCode());
         String result=responseEntity.getBody();
         Integer errno= JacksonUtil.parseInteger(result,"errno");
         AddressPo testAddressPo=JacksonUtil.parseObject(result,"data",AddressPo.class);

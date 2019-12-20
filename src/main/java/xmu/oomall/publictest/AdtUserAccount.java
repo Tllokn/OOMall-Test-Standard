@@ -1,37 +1,25 @@
-package xmu.oomall.test;
+package xmu.oomall.publictest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import xmu.oomall.test.BaseAccount;
-import xmu.oomall.vo.LoginVo;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
 
 /**
- * 普通用户帐号
- * @author  Ming Qiu
- * @date 2019/12/18
+ * 可以修改用户名和密码的用户
+ * @auther mingqiu
+ * @date 2019/12/19 下午5:53
  */
 @Component
-public class UserAccount extends BaseAccount {
+public class AdtUserAccount extends BaseAccount{
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Value("http://${oomall.host}:${oomall.port}/userInfoService/login")
     private String url;
 
-    @Value("${oomall.user}")
     private String userName;
-
-    @Value("${oomall.password}")
     private String password;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
 
     @Override
     protected String getUserName() {
@@ -51,5 +39,16 @@ public class UserAccount extends BaseAccount {
     @Override
     protected RestTemplate getRestTemplate() {
         return this.restTemplate;
+    }
+
+    public void setUserName(String userName) {
+
+        this.userName = userName;
+        this.token = "";
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+        this.token = "";
     }
 }

@@ -6,13 +6,13 @@
 
     <groupId>xmu.oomall</groupId>
     <artifactId>public-test</artifactId>
-    <version>${oomall.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>xmu.oomall</groupId>
         <artifactId>integration-test</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/>
     </parent>
 
     <dependencies>
@@ -31,10 +31,6 @@
             <groupId>xmu.oomall</groupId>
             <artifactId>domain</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test</artifactId>
-        </dependency>
 
     </dependencies>
 
@@ -43,6 +39,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 指定该Main Class为全局的唯一入口 -->
+                    <mainClass>xmu.oomall.PrivateTestApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
