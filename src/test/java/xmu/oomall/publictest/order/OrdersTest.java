@@ -1,10 +1,11 @@
 package xmu.oomall.publictest.order;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 import xmu.oomall.PublicTestApplication;
 import xmu.oomall.domain.Address;
 import xmu.oomall.domain.CartItem;
@@ -15,42 +16,35 @@ import xmu.oomall.util.JacksonUtil;
 import xmu.oomall.vo.OrderSubmitVo;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
-@SpringBootTest
+
+@SpringBootTest(classes = PublicTestApplication.class)
 public class OrdersTest {
     @Value("http://${oomall.host}:${oomall.port}/orderService/orders")
     String url;
 
-    @Value("http://${oomall.host}:${oomall.port}/")
+    @Value("http://${oomall.host}:${oomall.port}/orderService")
     String baseUrl;
 
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTemplate restTemplate;
 
     @Autowired
     private AdtUserAccount userAccount;
 
-    private HttpHeaders getHttpHeaders() throws URISyntaxException {
-        HttpHeaders headers = userAccount.createHeaderWithToken();
-        if (headers == null) {
-            //登录失败
-            assertTrue(false);
-        }
-        return headers;
-    }
 
     /**
      *
      * @author Ming Qiu
      */
-    //@Test
+    @Test
     public void tc_Orders_001() throws Exception{
 
         OrderSubmitVo orderSubmitVo = new OrderSubmitVo();
@@ -58,12 +52,12 @@ public class OrdersTest {
         orderSubmitVo.setCartItemIds(new ArrayList<>(3));
 
         //user_id = 1
-        userAccount.setUserName("52950104747");
+        userAccount.setUserName("90401449790");
         userAccount.setPassword("123456");
 
         String cartUrl = baseUrl +"cartService/cartItems";
         URI uri = new URI(cartUrl);
-        HttpHeaders httpHeaders = this.getHttpHeaders();
+        HttpHeaders httpHeaders = getHttpHeaders(userAccount);
         System.out.println("Generated httpheaders = " + httpHeaders);
 
         /**************************************************/
@@ -79,7 +73,7 @@ public class OrdersTest {
         HttpEntity<CartItem> cartEntity  = new HttpEntity<>(cartItem, httpHeaders);
 
         /* exchange方法模拟HTTP请求 */
-        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.POST, cartEntity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, cartEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         String body = response.getBody();
@@ -102,7 +96,7 @@ public class OrdersTest {
         cartEntity  = new HttpEntity<>(cartItem, httpHeaders);
 
         /* exchange方法模拟HTTP请求 */
-        response = testRestTemplate.exchange(uri, HttpMethod.POST, cartEntity, String.class);
+        response = restTemplate.exchange(uri, HttpMethod.POST, cartEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         body = response.getBody();
@@ -125,7 +119,7 @@ public class OrdersTest {
         cartEntity  = new HttpEntity<>(cartItem, httpHeaders);
 
         /* exchange方法模拟HTTP请求 */
-        response = testRestTemplate.exchange(uri, HttpMethod.POST, cartEntity, String.class);
+        response = restTemplate.exchange(uri, HttpMethod.POST, cartEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         body = response.getBody();
@@ -147,10 +141,10 @@ public class OrdersTest {
         /**************************************************/
 
         uri = new URI(url);
-        httpHeaders = getHttpHeaders();
+        httpHeaders = getHttpHeaders(userAccount);
         HttpEntity<OrderSubmitVo> orderEntity = new HttpEntity<>(orderSubmitVo, httpHeaders);
 
-        response=testRestTemplate.exchange(uri, HttpMethod.POST, orderEntity, String.class);
+        response= restTemplate.exchange(uri, HttpMethod.POST, orderEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
 
         body=response.getBody();
@@ -162,7 +156,7 @@ public class OrdersTest {
 
         url = url + "/" + retOrder.getId();
         HttpEntity httpEntity = new HttpEntity<>(httpHeaders);
-        response = testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         body=response.getBody();
         errNo= JacksonUtil.parseInteger(body,"errno");
@@ -184,4 +178,48 @@ public class OrdersTest {
             }
         }
     }
+
+    /**
+     * @author 24320172203217
+     * @throws Exception
+     */
+    @Test
+    public void tc_Orders_002() throws Exception {
+        /* 可以查询出相同user的多个orders */
+        /*  */
+
+        URI uri = new URI(url);
+        userAccount.setUserName("7387159492");
+        userAccount.setPassword("123456");
+        HttpHeaders httpHeaders = getHttpHeaders(userAccount);
+        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+        /*exchange方法模拟HTTP请求*/
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        /*取得响应体*/
+        String body = response.getBody();
+        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(0, errno);
+        List<HashMap> lists = JacksonUtil.parseObject(body, "data",List.class);
+        assertEquals(3, lists.size());
+        Boolean[] found = {false, false, false};
+        for(HashMap item : lists){
+            if (item.get("id").equals("1498") && item.get("order_sn").equals("7387159492")){
+                found[0] = true;
+            }else {
+                if (item.get("id").equals("1595") && item.get("order_sn").equals("7387159492")){
+                    found[1] = true;
+                } else {
+                    if (item.get("id").equals("19611") && item.get("order_sn").equals("2017073183998")){
+                        found[2] = true;
+                    }
+                }
+            }
+        }
+
+        assertTrue(found[0] && found[1] && found[2] );
+    }
+
+
 }
