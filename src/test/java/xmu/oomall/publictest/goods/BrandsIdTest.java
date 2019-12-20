@@ -14,6 +14,7 @@ import xmu.oomall.publictest.UserAccount;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -173,6 +174,71 @@ public class BrandsIdTest {
         result = responseEntity.getBody();
         errno = JacksonUtil.parseInteger(result,"errno");
         assertEquals(794,errno); //品牌不存在
+    }
+
+    /**
+     * @author Ming Qiu
+     * @throws Exception
+     */
+    @Test
+    public void tc_BrandsId_006() throws Exception{
+        // 准备要更新的数据
+        Brand brand = new Brand();
+        brand.setName("wjaaa");
+        brand.setGmtModified(LocalDateTime.now());
+
+        // 设置头部，未设置登陆
+        URI uri = new URI(url.replace("{id}","107"));
+        HttpHeaders headers = getHttpHeaders(userAccount);
+        HttpEntity<Brand> requestUpdate = new HttpEntity<>(brand, headers);
+
+        // 发出http请求
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.PUT, requestUpdate, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        Integer errNo = JacksonUtil.parseInteger(response.getBody(), "errno");
+        assertEquals(675, errNo); //管理员无权限
+
+        response = restTemplate.exchange(uri, HttpMethod.GET, requestUpdate, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        String result = response.getBody();
+        errNo = JacksonUtil.parseInteger(result,"errno");
+        assertEquals(0,errNo);
+
+        brand = JacksonUtil.parseObject(result,"data", Brand.class);
+        assertEquals("叶可思", brand.getName());
+        assertEquals(107, brand.getId());
+
+    }
+
+    /**
+     * @author Ming Qiu
+     * @throws Exception
+     */
+    @Test
+    public void tc_BrandsId_007() throws Exception{
+        // 准备要更新的数据
+        Brand brand = new Brand();
+        brand.setName("wjaaa");
+        brand.setGmtModified(LocalDateTime.now());
+
+        // 设置头部，未设置登陆
+        URI uri = new URI(url.replace("{id}","108"));
+        HttpHeaders headers = getHttpHeaders(adminAccount);
+        HttpEntity<Brand> requestUpdate = new HttpEntity<>(brand, headers);
+
+        // 发出http请求
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.PUT, requestUpdate, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        Integer errNo = JacksonUtil.parseInteger(response.getBody(), "errno");
+        assertEquals(0, errNo);
+
+        // 取出返回的body
+        Brand responseBrand = JacksonUtil.parseObject(response.getBody(), "data", Brand.class);
+
+        // 比较值是否相等
+        assertEquals(brand.getId(), responseBrand.getId());
+        assertEquals(brand.getName(), responseBrand.getName());
+        assertEquals(brand.getGmtModified(), responseBrand.getGmtModified());
     }
 
 }
