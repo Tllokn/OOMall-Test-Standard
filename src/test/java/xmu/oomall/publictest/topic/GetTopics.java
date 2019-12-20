@@ -39,17 +39,16 @@ public class GetTopics {
     String url3;
     @Value("http://${oomall.host}:${oomall.port}/topicService/topics?page=-2&limit=-2")
     String url4;
-
+    @Autowired
     private AdminAccount adminAccount;
 
     private HttpHeaders getHttpHeaders(URI uri) throws URISyntaxException {
-        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
-        if (!adminAccount.addToken(httpHeaders)) {
+        HttpHeaders headers = adminAccount.createHeaderWithToken();
+        if (headers == null) {
             //登录失败
-            System.out.println("失败");
             assertTrue(false);
         }
-        return httpHeaders;
+        return headers;
     }
 
     @Autowired
