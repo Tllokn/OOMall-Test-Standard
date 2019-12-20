@@ -5,20 +5,20 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 import xmu.oomall.domain.CartItem;
-import xmu.oomall.publictest.UserAccount;
+import xmu.oomall.publictest.AdtUserAccount;
 import xmu.oomall.util.JacksonUtil;
 
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 /**
  * @author
@@ -31,20 +31,10 @@ public class CartItemsTest {
     String url;
 
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTemplate restTemplate;
 
     @Autowired
-    private UserAccount userAccount;
-
-    private HttpHeaders getHttpHeaders() throws URISyntaxException {
-        HttpHeaders headers = userAccount.createHeaderWithToken();
-        System.out.println("Generated Header = " + headers);
-        if (headers == null) {
-            //登录失败
-            assertTrue(false);
-        }
-        return headers;
-    }
+    private AdtUserAccount userAccount;
 
     /**
      * @author 24320172203217
@@ -54,7 +44,9 @@ public class CartItemsTest {
     public void tc_CartItems_001() throws Exception{
 
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = this.getHttpHeaders();
+        userAccount.setUserName("37485876434");
+        userAccount.setPassword("123456");
+        HttpHeaders httpHeaders = getHttpHeaders(userAccount);;
 
         CartItem cartItem = new CartItem();
         cartItem.setBeCheck(false);
@@ -66,7 +58,7 @@ public class CartItemsTest {
         HttpEntity<CartItem> httpEntity  = new HttpEntity<>(cartItem, httpHeaders);
 
         /* exchange方法模拟HTTP请求 */
-        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.POST,httpEntity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST,httpEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         String body = response.getBody();
@@ -79,7 +71,7 @@ public class CartItemsTest {
         assertEquals(5, responseItem.getNumber());
 
         httpEntity= new HttpEntity<>(httpHeaders);
-        response = testRestTemplate.exchange(uri, HttpMethod.GET,httpEntity, String.class);
+        response = restTemplate.exchange(uri, HttpMethod.GET,httpEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         body = response.getBody();
@@ -97,44 +89,30 @@ public class CartItemsTest {
 
     }
 
+    /**
+     * @author: 24320172203217
+     * @throws Exception
+     */
     @Test
-    public void test32176() throws Exception
+    public void tc_CartItems_002() throws Exception
     {
-        /*24320172203217*/
 
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
-        httpHeaders.set("userId","-1");
+        userAccount.setUserName("53130983331");
+        userAccount.setPassword("123456");
+
+        HttpHeaders httpHeaders = getHttpHeaders(userAccount);;
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         /*exchange方法模拟HTTP请求*/
-        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         String body = response.getBody();
-        Integer status = JacksonUtil.parseInteger(body, "status");
-        assertEquals(500,status);
-    }
-    @Test
-    public void test32175() throws Exception
-    {
-        /*24320172203217*/
-
-        URI uri = new URI(url);
-        HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
-        httpHeaders.set("userId","10086");
-        HttpEntity httpEntity = new HttpEntity(httpHeaders);
-
-        /*exchange方法模拟HTTP请求*/
-        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        String body = response.getBody();
-        Integer status = JacksonUtil.parseInteger(body, "status");
-        assertEquals(500,status);
+        Integer errNo = JacksonUtil.parseInteger(body, "errNo");
+        assertEquals(0,errNo);
         List<String> cartItems = JacksonUtil.parseObject(body,"data",List.class);
-
-        assertEquals(cartItems,null);
-        assertEquals(true,cartItems.size() > 0);
+        assertEquals(cartItems,null); //用户购物车无东西
     }
+
 }

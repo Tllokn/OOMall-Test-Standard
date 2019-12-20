@@ -4,18 +4,17 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 import xmu.oomall.domain.AddressPo;
 import xmu.oomall.publictest.AdminAccount;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 @SpringBootTest
 public class AddressTest {
@@ -23,20 +22,11 @@ public class AddressTest {
     String url;
 
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTemplate restTemplate;
 
     @Autowired
     private AdminAccount adminAccount;
 
-    private HttpHeaders getHttpHeaders() throws URISyntaxException {
-        HttpHeaders headers = adminAccount.createHeaderWithToken();
-        System.out.println("Generated Header = " + headers);
-        if (headers == null) {
-            //登录失败
-            assertTrue(false);
-        }
-        return headers;
-    }
 
     @Test
     public void tc_address_001() throws Exception{
@@ -55,10 +45,10 @@ public class AddressTest {
         addressPo.setGmtModified(LocalDateTime.now());
 
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders();
+        HttpHeaders httpHeaders = getHttpHeaders(adminAccount);;
         HttpEntity httpEntity = new HttpEntity<>(addressPo, httpHeaders);
 
-        ResponseEntity<String> responseEntity=testRestTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
+        ResponseEntity<String> responseEntity= restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
         assertEquals(HttpStatus.CREATED,responseEntity.getStatusCode());
         String result=responseEntity.getBody();
         Integer errno= JacksonUtil.parseInteger(result,"errno");

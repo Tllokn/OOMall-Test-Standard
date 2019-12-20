@@ -4,41 +4,33 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 import xmu.oomall.PublicTestApplication;
 import xmu.oomall.domain.Ad;
 import xmu.oomall.publictest.AdminAccount;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static xmu.oomall.util.HttpRequest.getHttpHeaders;
+
 
 /**
  * @author
  */
 @SpringBootTest(classes = PublicTestApplication.class)
-public class AdsId {
+public class AdsIdTest {
     @Value("http://${oomall.host}:${oomall.host}/adService/ads/{id}")
     String url;
 
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTemplate restTemplate;
 
     @Autowired
     private AdminAccount adminAccount;
 
-    private HttpHeaders getHttpHeaders() throws URISyntaxException {
-        HttpHeaders headers = adminAccount.createHeaderWithToken();
-        System.out.println("Generated Header = " + headers);
-        if (headers == null) {
-            //登录失败
-            assertTrue(false);
-        }
-        return headers;
-    }
 
     /*********************************************************
      * DELETE
@@ -50,13 +42,13 @@ public class AdsId {
     public void tc_adsId_001() throws Exception {
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "121"));
-        HttpHeaders httpHeaders = getHttpHeaders();
+        HttpHeaders httpHeaders = getHttpHeaders(adminAccount);
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
-        ResponseEntity<String> response = this.testRestTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
+        ResponseEntity<String> response = this.restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
 
-        response = this.testRestTemplate.getForEntity(url, String.class);
+        response = this.restTemplate.getForEntity(url, String.class);
         String body = response.getBody();
         Integer errNo = JacksonUtil.parseInteger(body, "errno");
         assertEquals(response.getStatusCode(), HttpStatus.OK);
@@ -73,14 +65,14 @@ public class AdsId {
         HttpHeaders httpHeaders = adminAccount.createHeaders();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
-        ResponseEntity<String> response = this.testRestTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
+        ResponseEntity<String> response = this.restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
         String body = response.getBody();
         Integer errNo = JacksonUtil.parseInteger(body, "errno");
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertEquals(errNo, 666); //用户无操作权限
 
         //原来的对象还在
-        response = this.testRestTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
+        response = this.restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         body = response.getBody();
         errNo = JacksonUtil.parseInteger(body, "errno");
@@ -101,11 +93,11 @@ public class AdsId {
 
         //设置头部
         URI uri = new URI(url.replace("{id}","123"));
-        HttpHeaders headers = getHttpHeaders();
+        HttpHeaders headers = getHttpHeaders(adminAccount);;
         HttpEntity<Ad> requestUpdate = new HttpEntity<>(ad, headers);
 
         //发出http请求
-        ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.PUT, requestUpdate, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.PUT, requestUpdate, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         //取出返回的body
@@ -120,7 +112,7 @@ public class AdsId {
 
         headers = adminAccount.createHeaders();
         HttpEntity httpEntity = new HttpEntity(headers);
-        response = this.testRestTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        response = this.restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         String body = response.getBody();
         Integer errNo = JacksonUtil.parseInteger(body, "errno");
