@@ -11,6 +11,7 @@ import xmu.oomall.PublicTestApplication;
 import xmu.oomall.domain.Goods;
 import xmu.oomall.publictest.AdminAccount;
 import xmu.oomall.publictest.AdtUserAccount;
+import xmu.oomall.publictest.NoAdminAccount;
 import xmu.oomall.publictest.UserAccount;
 import xmu.oomall.util.JacksonUtil;
 
@@ -38,6 +39,9 @@ public class GoodsTest {
 
     @Autowired
     private AdtUserAccount adtUserAccount;
+
+    @Autowired
+    private NoAdminAccount noAdminAccount;
 
     /**
      * @author Ming Qiu
@@ -109,9 +113,7 @@ public class GoodsTest {
 
         /* 设置请求头部 */
         URI uri = new URI(url);
-        adtUserAccount.setUserName("nan");
-        adtUserAccount.setPassword("nan123");
-        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        HttpHeaders httpHeaders = getHttpHeaders(noAdminAccount);
         HttpEntity httpEntity = new HttpEntity(good, httpHeaders);
 
         /* exchange方法模拟HTTP请求 */
@@ -199,7 +201,7 @@ public class GoodsTest {
         /* 取得响应体 */
         String body = response.getBody();
         Integer errno = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(669, errno); //管理员未登录
+        assertEquals(660, errno); //未登录
     }
 
 }

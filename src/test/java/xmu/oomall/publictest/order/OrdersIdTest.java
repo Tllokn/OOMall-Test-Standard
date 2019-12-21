@@ -41,6 +41,7 @@ public class OrdersIdTest {
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "502"));
+        System.out.println("adtUserAccount = "+ adtUserAccount);
         HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 

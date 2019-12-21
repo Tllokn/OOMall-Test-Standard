@@ -1,6 +1,6 @@
 package xmu.oomall.publictest.ad;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,8 +22,9 @@ import static xmu.oomall.util.HttpRequest.getHttpHeaders;
  */
 @SpringBootTest(classes = PublicTestApplication.class)
 public class AdsIdTest {
-    @Value("http://${oomall.host}:${oomall.host}/adService/ads/{id}")
-    String url;
+
+    @Value("http://${oomall.host}:${oomall.port}/adService/ads/{id}")
+    private String url;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -41,6 +42,7 @@ public class AdsIdTest {
     @Test
     public void tc_adsId_001() throws Exception {
         /* 设置请求头部*/
+        System.out.println("url = " + url);
         URI uri = new URI(url.replace("{id}", "121"));
         HttpHeaders httpHeaders = getHttpHeaders(adminAccount);
         HttpEntity httpEntity = new HttpEntity(httpHeaders);

@@ -1,7 +1,9 @@
 oomall:
-  host: 192.168.1.145
+  host: 101.132.152.28
   port: 3400
   user: 55944411881
   password: 123456
   adminuser: 10086
   adminpassword: 10086
+  norightuser: nan
+  norightpassword: 123456

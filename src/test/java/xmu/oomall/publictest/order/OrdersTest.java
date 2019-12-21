@@ -37,7 +37,7 @@ public class OrdersTest {
     private RestTemplate restTemplate;
 
     @Autowired
-    private AdtUserAccount userAccount;
+    private AdtUserAccount adtUserAccount;
 
 
     /**
@@ -52,12 +52,12 @@ public class OrdersTest {
         orderSubmitVo.setCartItemIds(new ArrayList<>(3));
 
         //user_id = 1
-        userAccount.setUserName("90401449790");
-        userAccount.setPassword("123456");
+        adtUserAccount.setUserName("4771488350");
+        adtUserAccount.setPassword("123456");
 
         String cartUrl = baseUrl +"cartService/cartItems";
         URI uri = new URI(cartUrl);
-        HttpHeaders httpHeaders = getHttpHeaders(userAccount);
+        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
         System.out.println("Generated httpheaders = " + httpHeaders);
 
         /**************************************************/
@@ -141,7 +141,7 @@ public class OrdersTest {
         /**************************************************/
 
         uri = new URI(url);
-        httpHeaders = getHttpHeaders(userAccount);
+        httpHeaders = getHttpHeaders(adtUserAccount);
         HttpEntity<OrderSubmitVo> orderEntity = new HttpEntity<>(orderSubmitVo, httpHeaders);
 
         response= restTemplate.exchange(uri, HttpMethod.POST, orderEntity, String.class);
@@ -189,9 +189,9 @@ public class OrdersTest {
         /*  */
 
         URI uri = new URI(url);
-        userAccount.setUserName("7387159492");
-        userAccount.setPassword("123456");
-        HttpHeaders httpHeaders = getHttpHeaders(userAccount);
+        adtUserAccount.setUserName("7387159492");
+        adtUserAccount.setPassword("123456");
+        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
         /*exchange方法模拟HTTP请求*/
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);

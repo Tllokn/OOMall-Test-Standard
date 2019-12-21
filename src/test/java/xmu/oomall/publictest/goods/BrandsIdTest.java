@@ -10,6 +10,7 @@ import xmu.oomall.PublicTestApplication;
 import xmu.oomall.domain.Brand;
 import xmu.oomall.publictest.AdminAccount;
 import xmu.oomall.publictest.AdtUserAccount;
+import xmu.oomall.publictest.NoAdminAccount;
 import xmu.oomall.publictest.UserAccount;
 import xmu.oomall.util.JacksonUtil;
 
@@ -23,7 +24,7 @@ import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 @SpringBootTest(classes = PublicTestApplication.class)
 public class BrandsIdTest {
 
-    @Value("http://${oomall.host}:${oomall.port}/goodInfoService/brands/{id}")
+    @Value("http://${oomall.host}:${oomall.port}/goodsInfoService/brands/{id}")
     String url;
 
     @Autowired
@@ -34,6 +35,9 @@ public class BrandsIdTest {
 
     @Autowired
     private AdminAccount adminAccount;
+
+    @Autowired
+    private NoAdminAccount noAdminAccount;
 
     @Autowired
     private AdtUserAccount adtUserAccount;
@@ -155,9 +159,7 @@ public class BrandsIdTest {
     {
         URI uri = new URI(url.replace("{id}","72"));
 
-        adtUserAccount.setUserName("nan");
-        adtUserAccount.setUserName("nan123");
-        HttpHeaders headers = getHttpHeaders(adtUserAccount);
+        HttpHeaders headers = getHttpHeaders(adminAccount);
         HttpEntity httpEntity = new HttpEntity(headers);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);

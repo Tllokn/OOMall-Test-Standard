@@ -1,7 +1,8 @@
 package xmu.oomall.publictest.cart;
 
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,7 +35,7 @@ public class CartItemsTest {
     private RestTemplate restTemplate;
 
     @Autowired
-    private AdtUserAccount userAccount;
+    private AdtUserAccount adtUserAccount;
 
     /**
      * @author 24320172203217
@@ -44,9 +45,9 @@ public class CartItemsTest {
     public void tc_CartItems_001() throws Exception{
 
         URI uri = new URI(url);
-        userAccount.setUserName("37485876434");
-        userAccount.setPassword("123456");
-        HttpHeaders httpHeaders = getHttpHeaders(userAccount);;
+        adtUserAccount.setUserName("37485876434");
+        adtUserAccount.setPassword("123456");
+        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);;
 
         CartItem cartItem = new CartItem();
         cartItem.setBeCheck(false);
@@ -98,10 +99,10 @@ public class CartItemsTest {
     {
 
         URI uri = new URI(url);
-        userAccount.setUserName("53130983331");
-        userAccount.setPassword("123456");
+        adtUserAccount.setUserName("53130983331");
+        adtUserAccount.setPassword("123456");
 
-        HttpHeaders httpHeaders = getHttpHeaders(userAccount);;
+        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);;
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         /*exchange方法模拟HTTP请求*/

@@ -20,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(classes = PublicTestApplication.class)
 public class LoginTest {
 
-    @Value("http://${oomall.host}:${oomall.port}/userService/login")
+    @Value("http://${oomall.host}:${oomall.port}/userInfoService/login")
     private String url;
 
-    @Value("http://${oomall.host}:${oomall.port}/userService/")
+    @Value("http://${oomall.host}:${oomall.port}/userInfoService/")
     private String baseUrl;
 
     @Autowired

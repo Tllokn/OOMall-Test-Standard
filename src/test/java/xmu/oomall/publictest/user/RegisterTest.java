@@ -21,10 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = PublicTestApplication.class)
 public class RegisterTest {
 
-    @Value("http://${oomall.host}:${oomall.port}/userService/register")
+    @Value("http://${oomall.host}:${oomall.port}/userInfoService/register")
     private String url;
 
-    @Value("http://${oomall.host}:${oomall.port}/userService/")
+    @Value("http://${oomall.host}:${oomall.port}/userInfoService/")
     private String baseUrl;
 
     @Autowired
@@ -45,7 +45,7 @@ public class RegisterTest {
         HttpHeaders httpHeaders = adtUserAccount.createHeaders();
         HttpEntity<String> captEntity = new HttpEntity<>("1299988", httpHeaders);
 
-        URI uri = new URI(baseUrl + "/captcha");
+        URI uri = new URI(baseUrl + "captcha");
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, captEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         String body = response.getBody();
@@ -84,7 +84,7 @@ public class RegisterTest {
         loginVo.setUsername(user.getUsername());
         loginVo.setPassword(user.getPassword());
         HttpEntity<LoginVo> entity = new HttpEntity<>(loginVo, httpHeaders);
-        uri = new URI(baseUrl + "/login");
+        uri = new URI(baseUrl + "login");
         response = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         body = response.getBody();

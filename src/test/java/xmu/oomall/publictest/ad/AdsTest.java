@@ -107,6 +107,6 @@ public class AdsTest {
 
         String result=responseEntity.getBody();
         Integer errno= JacksonUtil.parseInteger(result,"errno");
-        assertEquals(666,errno); //用户无权限
+        assertEquals(660,errno); //用户无权限
     }
 }
