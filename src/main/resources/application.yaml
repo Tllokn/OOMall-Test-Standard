@@ -1,13 +1,13 @@
 oomall:
-  host: 106.15.92.5
-  port: 9527
-  user: 49404524964
+  host: 47.100.32.48
+  port: 8400
+  user: 1940203832
   password: 123456
-  adminuser: 123
-  adminpassword: 321
-  norightuser: 111
-  norightpassword: 222
+  adminuser: hi
+  adminpassword: 123456
+  norightuser: wowoto
+  norightpassword: 123456
 
 logging:
   level:
-    org.springframework: debug
+    org.springframework: info
