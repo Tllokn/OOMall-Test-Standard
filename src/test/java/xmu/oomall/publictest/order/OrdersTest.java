@@ -51,10 +51,10 @@ public class OrdersTest {
         orderSubmitVo.setCartItemIds(new ArrayList<>(3));
 
         //user_id = 1
-        adtUserAccount.setUserName("55944411881");
+        adtUserAccount.setUserName("37798048497");
         adtUserAccount.setPassword("123456");
 
-        String cartUrl = baseUrl + "cartService/cartItems";
+        String cartUrl = baseUrl +"cartService/cartItems";
         URI uri = new URI(cartUrl);
         HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
@@ -145,7 +145,7 @@ public class OrdersTest {
 
         HttpEntity<OrderSubmitVo> orderEntity = new HttpEntity<>(orderSubmitVo, httpHeaders);
 
-        response = restTemplate.exchange(uri, HttpMethod.POST, orderEntity, String.class);
+        response= restTemplate.exchange(uri, HttpMethod.POST, orderEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
 
         body=response.getBody();
@@ -164,7 +164,7 @@ public class OrdersTest {
         assertEquals(0, errNo);
         Order fetchOrder=JacksonUtil.parseObject(body,"data", Order.class);
 
-        assertEquals(retOrder.getId(), fetchOrder.getId());
+        assertEquals(retOrder.getId(),fetchOrder.getId());
         assertEquals(1,fetchOrder.getUserId());
         assertEquals(address.getProvince()+address.getCity()+address.getCounty()+address.getAddressDetail(),fetchOrder.getAddress());
         assertEquals(cartItems.size(), retOrder.getOrderItemList().size());
@@ -190,7 +190,7 @@ public class OrdersTest {
         /*  */
 
         URI uri = new URI(url);
-        adtUserAccount.setUserName("7387159492");
+        adtUserAccount.setUserName("67302324219"); // id = 333
         adtUserAccount.setPassword("123456");
         HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
@@ -205,16 +205,16 @@ public class OrdersTest {
         Integer errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errno);
         List<HashMap> lists = JacksonUtil.parseObject(body, "data",List.class);
-        assertEquals(3, lists.size());
+        assertEquals(101, lists.size());
         Boolean[] found = {false, false, false};
         for(HashMap item : lists){
-            if (item.get("id").equals("1498") && item.get("order_sn").equals("7387159492")){
+            if (item.get("id").equals("1797") && item.get("order_sn").equals("2016110406134")){
                 found[0] = true;
             }else {
-                if (item.get("id").equals("1595") && item.get("order_sn").equals("7387159492")){
+                if (item.get("id").equals("1812") && item.get("order_sn").equals("2016110412052")){
                     found[1] = true;
                 } else {
-                    if (item.get("id").equals("19611") && item.get("order_sn").equals("2017073183998")){
+                    if (item.get("id").equals("1819") && item.get("order_sn").equals("2016110489281")){
                         found[2] = true;
                     }
                 }

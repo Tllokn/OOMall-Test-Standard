@@ -18,7 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
- * @Author 学号24320172203139
+ * @a
+ * uthor 学号24320172203139
  * @create 2019/12/16 13:22
  */
 @SpringBootTest(classes = PublicTestApplication.class)
@@ -84,7 +85,7 @@ public class OrdersIdCancelTest {
         String body=  responseEntity.getBody();
 
         Integer errno= JacksonUtil.parseInteger(body,"errno");
-        assertEquals(604,errno); //订单非法操作(查看或者操作了不属于自己的订单)
+        assertEquals(604,errno); //订单非法操作（已经提交的订单不能取消）
 
     }
 
