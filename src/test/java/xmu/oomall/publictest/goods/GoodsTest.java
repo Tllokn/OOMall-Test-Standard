@@ -70,7 +70,7 @@ public class GoodsTest {
 
         /* exchange方法模拟HTTP请求 */
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
         /* 取得响应体 */
         String body = response.getBody();
@@ -160,7 +160,7 @@ public class GoodsTest {
         /* 取得响应体 */
         String body = response.getBody();
         Integer errno = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(675, errno); //管理员无权限
+        assertEquals(666, errno); //用户无权限
     }
 
     /**
@@ -199,7 +199,7 @@ public class GoodsTest {
         /* 取得响应体 */
         String body = response.getBody();
         Integer errno = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(675, errno); //管理员无权限
+        assertEquals(669, errno); //管理员未登录
     }
 
 }

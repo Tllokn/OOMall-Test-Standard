@@ -67,7 +67,7 @@ public class RegisterTest {
 
         /* exchange方法模拟HTTP请求 */
         response = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
         /*取得响应体*/
         body = response.getBody();
