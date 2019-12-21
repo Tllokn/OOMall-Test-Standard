@@ -62,7 +62,7 @@ public class AdsTest {
         HttpEntity httpEntity = new HttpEntity<>(ad, httpHeaders);
 
         ResponseEntity<String> responseEntity= restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
-        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         String result=responseEntity.getBody();
         Integer errno= JacksonUtil.parseInteger(result,"errno");

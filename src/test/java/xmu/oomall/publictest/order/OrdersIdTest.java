@@ -22,7 +22,7 @@ import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 @SpringBootTest(classes = PublicTestApplication.class)
 public class OrdersIdTest {
     @Value("http://${oomall.host}:${oomall.port}/orderService/orders/{id}")
-    String url;
+    private String url;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -37,7 +37,7 @@ public class OrdersIdTest {
     @Test
     public void tc_OrdersId_001() throws Exception{
         /* 登陆 */
-        adtUserAccount.setUserName("64000302147");
+        adtUserAccount.setUserName("36114409133");
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "502"));

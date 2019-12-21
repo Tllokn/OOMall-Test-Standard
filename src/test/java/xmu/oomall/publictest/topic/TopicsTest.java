@@ -1,6 +1,5 @@
 package xmu.oomall.publictest.topic;
 
-import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +48,7 @@ public class TopicsTest {
 
         /*exchange方法模拟HTTP请求*/
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
         /*取得响应体*/
         String body = response.getBody();
@@ -94,7 +93,7 @@ public class TopicsTest {
 
         /*exchange方法模拟HTTP请求*/
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
         /*取得响应体*/
         String body = response.getBody();
@@ -123,33 +122,6 @@ public class TopicsTest {
         assertEquals(650, errno); //该话题是无效话题(不在数据库里的或者逻辑删除)
     }
 
-    /**
-     * 正确测试,需要数据库中topic的个数>1
-     * @author: 24320172203240
-     * @throws Exception
-     */
-    @org.junit.Test
-    public void getTopics_001() throws Exception{
-        /* 设置请求头部*/
-        URI uri = new URI(baseUrl+"?page=2&limit=2");
-        HttpHeaders httpHeaders = adminAccount.createHeaders();
-        HttpEntity httpEntity = new HttpEntity(httpHeaders);
-
-        /*exchange方法模拟HTTP请求*/
-        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        /*取得响应体*/
-        String body = response.getBody();
-        Integer errno = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(0, errno);
-
-        /*assert判断*/
-        PageInfo topic_1 = JacksonUtil.parseObject(body, "data", PageInfo.class);
-        assertEquals(2, topic_1.getPageSize());
-        assertEquals(1, topic_1.getPageNum());
-    }
-
     @Test
     /**
      * error limit=-2 page=2
@@ -168,7 +140,7 @@ public class TopicsTest {
         /*取得响应体*/
         String body = response.getBody();
         Integer errno = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(650, errno);
+        assertEquals(580, errno);
     }
 
     @Test
@@ -189,7 +161,7 @@ public class TopicsTest {
         /*取得响应体*/
         String body = response.getBody();
         Integer errno = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(650, errno);
+        assertEquals(580, errno);
     }
 
     @Test
@@ -210,6 +182,6 @@ public class TopicsTest {
         /*取得响应体*/
         String body = response.getBody();
         Integer errno = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(650, errno);
+        assertEquals(580, errno);
     }
 }

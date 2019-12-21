@@ -70,7 +70,7 @@ public class GoodsTest {
 
         /* exchange方法模拟HTTP请求 */
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
         /* 取得响应体 */
         String body = response.getBody();
