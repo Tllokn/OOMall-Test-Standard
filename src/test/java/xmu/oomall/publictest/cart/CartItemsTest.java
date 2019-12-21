@@ -15,6 +15,7 @@ import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -77,10 +78,10 @@ public class CartItemsTest {
         body = response.getBody();
         errNo = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0,errNo);
-        List<CartItem> items = JacksonUtil.parseObjectList(body,"data",CartItem.class);
+        List<HashMap> items = JacksonUtil.parseObject(body,"data",List.class);
         Boolean found = false;
-        for (CartItem item : items){
-            if (item.getId() == id ){
+        for (HashMap item : items){
+            if (item.get("id") == String.valueOf(id) ){
                 found = true;
                 break;
             }
@@ -110,9 +111,9 @@ public class CartItemsTest {
 
         String body = response.getBody();
         Integer errNo = JacksonUtil.parseInteger(body, "errNo");
-        assertEquals(0,errNo);
-        List<String> cartItems = JacksonUtil.parseObject(body,"data",List.class);
-        assertEquals(cartItems,null); //用户购物车无东西
+        assertEquals(0, errNo);
+        List cartItems = JacksonUtil.parseObject(body,"data", List.class);
+        assertEquals(0, cartItems.size()); //用户购物车无东西
     }
 
 }

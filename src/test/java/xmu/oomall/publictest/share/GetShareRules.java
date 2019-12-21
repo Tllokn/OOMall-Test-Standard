@@ -39,7 +39,6 @@ public class GetShareRules {
      */
     @Test
     public void getShareRule() throws URISyntaxException {
-
         /* 设置请求头部*/
         URI uri=new URI(url.replace("{id}","1006239"));
         HttpHeaders httpHeaders = userAccount.createHeaderWithToken();
@@ -64,7 +63,6 @@ public class GetShareRules {
                 "{\"lowerbound\":\"2\", \"upperbound\":\"10\", \"rate\":\"0.7\"},{\"lowerbound\":\"11\", \"upperbound\":\"30\", \"rate\":\"1\"}," +
                 "{\"lowerbound\":\"31\", \"upperbound\":\"100\", \"rate\":\"1.5\"}],\"type\":\"0\"}",
                 shareRule.getShareLevelStrategy());
-
     }
 
 }
