@@ -76,7 +76,7 @@ public class AdsIdTest {
         String body = response.getBody();
         Integer errNo = JacksonUtil.parseInteger(body, "errno");
         assertEquals(response.getStatusCode(), HttpStatus.OK);
-        assertEquals(errNo, 660); //用户无操作权限
+        assertEquals(660, errNo); //用户无操作权限
 
         //原来的对象还在
         response = this.restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
