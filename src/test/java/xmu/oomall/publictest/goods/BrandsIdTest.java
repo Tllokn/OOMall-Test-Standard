@@ -71,7 +71,7 @@ public class BrandsIdTest {
     {
         URI uri = new URI(url.replace("{id}","0"));
 
-        HttpHeaders headers = getHttpHeaders(userAccount);
+        HttpHeaders headers = getHttpHeaders(adminAccount);
         HttpEntity httpEntity = new HttpEntity(headers);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
@@ -97,7 +97,7 @@ public class BrandsIdTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         String result = responseEntity.getBody();
         Integer errno = JacksonUtil.parseInteger(result,"errno");
-        assertEquals(675,errno); //管理员无权限
+        assertEquals(666,errno); //用户无权限
 
         headers = userAccount.createHeaders();
         httpEntity = new HttpEntity(headers);
@@ -196,7 +196,7 @@ public class BrandsIdTest {
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.PUT, requestUpdate, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         Integer errNo = JacksonUtil.parseInteger(response.getBody(), "errno");
-        assertEquals(675, errNo); //管理员无权限
+        assertEquals(666, errNo); //用户无权限
 
         response = restTemplate.exchange(uri, HttpMethod.GET, requestUpdate, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());

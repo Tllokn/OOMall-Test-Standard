@@ -15,7 +15,7 @@ public class AdtUserAccount extends BaseAccount{
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("http://${oomall.host}:${oomall.port}/userInfoService/login")
+    @Value("http://${oomall.host}:${oomall.port}/userInfoService/admin/login")
     private String url;
 
     private String userName;

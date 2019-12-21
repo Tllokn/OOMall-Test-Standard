@@ -68,7 +68,7 @@ public class LogsTest {
         // 取得响应体
         String body = response.getBody();
         Integer errno = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(675, errno); //管理员无权限
+        assertEquals(666, errno); //用户无权限
     }
 
 }
