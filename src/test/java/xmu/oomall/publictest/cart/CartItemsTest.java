@@ -82,7 +82,7 @@ public class CartItemsTest {
         List<HashMap> items = JacksonUtil.parseObject(body,"data",List.class);
         Boolean found = false;
         for (HashMap item : items){
-            if (item.get("id") == String.valueOf(id) ){
+            if (id.equals((Integer) item.get("id"))){
                 found = true;
                 break;
             }

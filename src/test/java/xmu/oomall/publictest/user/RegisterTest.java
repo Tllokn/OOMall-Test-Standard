@@ -102,7 +102,7 @@ public class RegisterTest {
     public void tc_Register_002() throws Exception {
 
         HttpHeaders httpHeaders = adtUserAccount.createHeaders();
-        HttpEntity<String> captEntity = new HttpEntity<>("1299988", httpHeaders);
+        HttpEntity<String> captEntity = new HttpEntity<>("12999887", httpHeaders);
 
         URI uri = new URI(baseUrl + "captcha");
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, captEntity, String.class);
@@ -116,7 +116,7 @@ public class RegisterTest {
         UserRegisterVo user = new UserRegisterVo();
         user.setUsername("10086");
         user.setPassword("10086");
-        user.setTelephone("1299988");
+        user.setTelephone("12999887");
         user.setCode(code);
 
         /* 设置请求头部 */
