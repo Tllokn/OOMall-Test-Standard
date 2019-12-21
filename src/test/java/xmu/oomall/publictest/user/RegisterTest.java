@@ -92,4 +92,47 @@ public class RegisterTest {
         assertEquals(0, errno);
     }
 
+    /**
+     * @author Ming Qiu
+     * @version 1.3
+     * @date 2019/12/16 22:19
+     * @modified by Ming Qiu
+     */
+    @Test
+    public void tc_Register_002() throws Exception {
+
+        HttpHeaders httpHeaders = adtUserAccount.createHeaders();
+        HttpEntity<String> captEntity = new HttpEntity<>("1299988", httpHeaders);
+
+        URI uri = new URI(baseUrl + "captcha");
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, captEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        String body = response.getBody();
+        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(0, errno);
+        String code = "999999";
+
+        /* 准备数据 */
+        UserRegisterVo user = new UserRegisterVo();
+        user.setUsername("10086");
+        user.setPassword("10086");
+        user.setTelephone("1299988");
+        user.setCode(code);
+
+        /* 设置请求头部 */
+        uri = new URI(url);
+
+        HttpEntity<UserRegisterVo> httpEntity = new HttpEntity<>(user, httpHeaders);
+
+        /* exchange方法模拟HTTP请求 */
+        response = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        /*取得响应体*/
+        body = response.getBody();
+        errno = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(667, errno); //验证码错误
+    }
+
+
 }

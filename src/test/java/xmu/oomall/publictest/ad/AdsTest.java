@@ -63,7 +63,7 @@ public class AdsTest {
 
         String result=responseEntity.getBody();
         Integer errno= JacksonUtil.parseInteger(result,"errno");
-        Ad testAd=JacksonUtil.parseObject(result,"data",Ad.class);
+        Ad testAd=JacksonUtil.parseObject(result,"data", Ad.class);
 
         assertEquals(0,errno);
         assertEquals(ad.getLink(),testAd.getLink());

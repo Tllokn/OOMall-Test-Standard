@@ -66,7 +66,7 @@ public class OrdersIdCancelTest {
     @Test
     public void tc_OrdersIdCancel_002() throws URISyntaxException {
 
-        adtUserAccount.setUserName("86888506996");
+        adtUserAccount.setUserName("83480673081"); //id = 58
         adtUserAccount.setPassword("123456");
         Order order=new Order();
         order.setStatusCode(1);

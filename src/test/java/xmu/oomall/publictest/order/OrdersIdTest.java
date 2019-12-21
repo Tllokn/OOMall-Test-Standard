@@ -67,11 +67,13 @@ public class OrdersIdTest {
     @Test
     public void tc_OrdersId_002() throws Exception{
         /* 登陆 */
-        adtUserAccount.setUserName("67621013212");
+        adtUserAccount.setUserName("57008686621");
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "504"));
         HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
+        assertNotNull(httpHeaders);
+
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         /*exchange方法模拟HTTP请求*/
@@ -95,7 +97,7 @@ public class OrdersIdTest {
         /* 本条order被逻辑删除 */
         /* 设置请求头部*/
         /* 24320172203217 */
-        adtUserAccount.setUserName("18589301331");
+        adtUserAccount.setUserName("18589301331"); //id = 60
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "502"));
@@ -130,7 +132,7 @@ public class OrdersIdTest {
         adtUserAccount.setUserName("83480673081"); //id = 58
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
-        URI uri = new URI(url.replace("{id}", "504"));
+        URI uri = new URI(url.replace("{id}", "1857"));
         HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
 
@@ -141,7 +143,6 @@ public class OrdersIdTest {
         String body = response.getBody();
         Integer errNo = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errNo);
-
 
         /*exchange方法模拟HTTP请求*/
         response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);

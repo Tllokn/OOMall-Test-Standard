@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = PublicTestApplication.class)
 public class DefaultFreightTest {
-    @Value("http://${oomall.host}:${oomall.port}/freightService/defaultFreights")
+    @Value("http://${oomall.host}:${oomall.port}/freightService/defaultFreights?page=1&limit=12")
     String url;
 
     @Autowired
@@ -47,7 +47,5 @@ public class DefaultFreightTest {
         Integer errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errno);
     }
-
-
 
 }
