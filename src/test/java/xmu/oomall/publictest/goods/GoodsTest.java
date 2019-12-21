@@ -121,6 +121,7 @@ public class GoodsTest {
 
         /* 取得响应体 */
         String body = response.getBody();
+        System.out.println(body);
         Integer errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(675, errno); //管理员无权限
     }

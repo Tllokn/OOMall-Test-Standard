@@ -48,7 +48,7 @@ public class CategoryIdTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         String result = responseEntity.getBody();
         Integer errno = JacksonUtil.parseInteger(result,"errno");
-        assertEquals("0",errno);
+        assertEquals(0,errno);
 
         responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());

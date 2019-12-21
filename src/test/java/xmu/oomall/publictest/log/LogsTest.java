@@ -12,13 +12,21 @@ import xmu.oomall.publictest.UserAccount;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = PublicTestApplication.class)
 public class LogsTest {
     @Value("http://${oomall.host}:${oomall.port}/logService/logs")
-    String url;
+    private String url;
+
+    @Value("http://${oomall.host}:${oomall.port}/")
+    private String baseUrl;
+
+    @Value("${oomall.adminuser}")
+    private String adminUserName;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -36,17 +44,29 @@ public class LogsTest {
     @Test
     public void tc_Logs_001() throws Exception {
         // 设置请求头部
-        URI uri = new URI(url);
+        URI uri = new URI(url + "admin?adminName="+adminUserName);
+        System.out.println("adminUserName = " + adminUserName);
         HttpHeaders httpHeaders = adminAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        String body = response.getBody();
+        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(0, errno);
+        List users = JacksonUtil.parseObject(body, "data", List.class);
+        assertEquals(1, users.size());
+        HashMap user = (HashMap) users.get(0);
+        Integer adminId = (Integer) user.get("id");
+
+        uri = new URI(url + "?adminid="+adminId);
 
         // 发出HTTP请求
-        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         // 取得响应体
-        String body = response.getBody();
-        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        body = response.getBody();
+        errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errno);
     }
 
