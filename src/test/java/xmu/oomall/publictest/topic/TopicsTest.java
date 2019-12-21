@@ -18,11 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = PublicTestApplication.class)
 public class TopicsTest {
-    @Value("http://${oomall.host}:${oomall.port}/topicService/topics/")
-    String url;
-
     @Value("http://${oomall.host}:${oomall.port}/topicService/topics")
-    private String baseUrl;
+    String url;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -131,7 +128,7 @@ public class TopicsTest {
      */
     public void getTopics_002() throws Exception{
         /* 设置请求头部*/
-        URI uri = new URI(baseUrl+"?page=2&limit=-1");
+        URI uri = new URI(url+"?page=2&limit=-1");
         HttpHeaders httpHeaders = adminAccount.createHeaders();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
@@ -152,7 +149,7 @@ public class TopicsTest {
      */
     public void getTopics_003() throws Exception{
         /* 设置请求头部*/
-        URI uri  =new URI(baseUrl+"?page=-1&limit=2");
+        URI uri  =new URI(url+"?page=-1&limit=2");
         HttpHeaders httpHeaders = adminAccount.createHeaders();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
@@ -173,7 +170,7 @@ public class TopicsTest {
      */
     public void getTopics_004() throws Exception{
         /* 设置请求头部*/
-        URI uri = new URI(baseUrl+"?page=-2&limit=-2");
+        URI uri = new URI(url+"?page=-2&limit=-2");
         HttpHeaders httpHeaders = adminAccount.createHeaders();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 

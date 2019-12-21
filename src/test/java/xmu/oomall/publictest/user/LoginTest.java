@@ -37,7 +37,7 @@ public class LoginTest {
     public void tc_Login_001() throws Exception {
 
         LoginVo loginVo = new LoginVo();
-        loginVo.setUsername("37485876434");
+        loginVo.setUsername("37798048497");
         loginVo.setPassword("1111");
         HttpHeaders httpHeaders = adtUserAccount.createHeaders();
         HttpEntity<LoginVo> entity = new HttpEntity<>(loginVo, httpHeaders);

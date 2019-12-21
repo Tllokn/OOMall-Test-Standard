@@ -66,7 +66,7 @@ public class OrdersTest {
         cartItem.setGmtCreate(LocalDateTime.now());
         cartItem.setGmtModified(LocalDateTime.now());
         cartItem.setNumber(5);
-        cartItem.setProductId(3069);
+        cartItem.setProductId(3);
 
         /* 设置请求头部 */
         HttpEntity<CartItem> cartEntity  = new HttpEntity<>(cartItem, httpHeaders);
@@ -89,7 +89,7 @@ public class OrdersTest {
         cartItem.setGmtCreate(LocalDateTime.now());
         cartItem.setGmtModified(LocalDateTime.now());
         cartItem.setNumber(1);
-        cartItem.setProductId(3067);
+        cartItem.setProductId(1);
 
         /* 设置请求头部 */
         cartEntity  = new HttpEntity<>(cartItem, httpHeaders);
@@ -112,7 +112,7 @@ public class OrdersTest {
         cartItem.setGmtCreate(LocalDateTime.now());
         cartItem.setGmtModified(LocalDateTime.now());
         cartItem.setNumber(4);
-        cartItem.setProductId(3070);
+        cartItem.setProductId(4);
 
         /* 设置请求头部 */
         cartEntity  = new HttpEntity<>(cartItem, httpHeaders);
@@ -178,6 +178,7 @@ public class OrdersTest {
                 assertTrue(found);
             }
         }
+        assertEquals(1025040, retOrder.getGoodsPrice());
     }
 
     /**
@@ -208,13 +209,13 @@ public class OrdersTest {
         assertEquals(101, lists.size());
         Boolean[] found = {false, false, false};
         for(HashMap item : lists){
-            if (item.get("id").equals("1797") && item.get("order_sn").equals("2016110406134")){
+            if (item.get("id").equals(1797) && item.get("orderSn").equals("2016110406134")){
                 found[0] = true;
             }else {
-                if (item.get("id").equals("1812") && item.get("order_sn").equals("2016110412052")){
+                if (item.get("id").equals(1812) && item.get("orderSn").equals("2016110412052")){
                     found[1] = true;
                 } else {
-                    if (item.get("id").equals("1819") && item.get("order_sn").equals("2016110489281")){
+                    if (item.get("id").equals(1819) && item.get("orderSn").equals("2016110489281")){
                         found[2] = true;
                     }
                 }

@@ -45,16 +45,15 @@ public class GoodsIdTest {
         /*exchange方法模拟HTTP请求*/
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-
+        System.out.println(response);
         /*取得响应体*/
         String body = response.getBody();
+
         Integer errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errno);
 
         Goods goods =JacksonUtil.parseObject(body,"data",Goods.class);
-        assertEquals(374,goods.getId());
-        assertEquals("drh-szd0002",goods.getGoodsSn());
-        assertEquals("深圳客户专享-古彩•白蛇传瓷瓶",goods.getName());
+        assertEquals(288,goods.getId());
     }
 
     /**

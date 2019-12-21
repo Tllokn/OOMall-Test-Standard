@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import xmu.oomall.domain.CartItem;
+import xmu.oomall.domain.CartItemPo;
 import xmu.oomall.publictest.AdtUserAccount;
 import xmu.oomall.util.JacksonUtil;
 
@@ -49,14 +50,14 @@ public class CartItemsTest {
         HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
 
-        CartItem cartItem = new CartItem();
+        CartItemPo cartItem = new CartItemPo();
         cartItem.setBeCheck(false);
         cartItem.setGmtCreate(LocalDateTime.now());
         cartItem.setGmtModified(LocalDateTime.now());
         cartItem.setNumber(5);
         cartItem.setProductId(1);
         /* 设置请求头部 */
-        HttpEntity<CartItem> httpEntity  = new HttpEntity<>(cartItem, httpHeaders);
+        HttpEntity<CartItemPo> httpEntity  = new HttpEntity<>(cartItem, httpHeaders);
 
         /* exchange方法模拟HTTP请求 */
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST,httpEntity, String.class);
@@ -110,7 +111,7 @@ public class CartItemsTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         String body = response.getBody();
-        Integer errNo = JacksonUtil.parseInteger(body, "errNo");
+        Integer errNo = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errNo);
         List cartItems = JacksonUtil.parseObject(body,"data", List.class);
         assertEquals(0, cartItems.size()); //用户购物车无东西
