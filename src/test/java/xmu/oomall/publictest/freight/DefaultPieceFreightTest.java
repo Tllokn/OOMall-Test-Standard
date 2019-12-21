@@ -33,11 +33,11 @@ public class DefaultPieceFreightTest {
     @Autowired
     private AdminAccount adminAccount;
 
+    /**
+     * @author 24320172203141
+     */
     @Test
     public void tc_defaultPieceFreight_001() throws Exception {
-        /**
-         * @author 24320172203141
-         */
         // 设置请求头部
         URI uri = new URI(url);
         HttpHeaders httpHeaders = adminAccount.createHeaderWithToken();

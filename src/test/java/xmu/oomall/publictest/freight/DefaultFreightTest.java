@@ -14,9 +14,7 @@ import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * @author 24320172203141
- */
+
 @SpringBootTest(classes = PublicTestApplication.class)
 public class DefaultFreightTest {
     @Value("http://${oomall.host}:${oomall.port}/freightService/defaultFreights")
@@ -28,6 +26,9 @@ public class DefaultFreightTest {
     @Autowired
     private AdminAccount adminAccount;
 
+    /**
+     * @author 24320172203141
+     */
     @Test
     public void tc_defaultFreight_001() throws Exception {
         /**

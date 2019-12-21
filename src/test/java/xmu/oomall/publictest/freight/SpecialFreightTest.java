@@ -1,6 +1,5 @@
 package xmu.oomall.publictest.freight;
 
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +13,6 @@ import xmu.oomall.util.JacksonUtil;
 import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 
 /**
  * @author hsx
@@ -49,8 +47,6 @@ public class SpecialFreightTest {
         String body = response.getBody();
         Integer errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errno);
-
     }
-
 
 }
