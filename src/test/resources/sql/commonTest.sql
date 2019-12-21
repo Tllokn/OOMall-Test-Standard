@@ -77,4 +77,27 @@ INSERT INTO `oomall_default_piece_freight` VALUES ('33', '{\"dest\":[22]}', '2.0
 INSERT INTO `oomall_default_piece_freight` VALUES ('34', '{\"dest\":[21]}', '2.00', null, null, '0', '2-3天');
 INSERT INTO `oomall_default_piece_freight` VALUES ('35', '{\"dest\":[166,167,168,171,172,175]}', '1.50', '2019-12-21 04:05:59.00', '2019-12-21 04:05:48.00', '0', '次日');
 
+INSERT INTO `oomall_special_freight` VALUES
+(
+1001000,
+1,
+20,
+2,
+15,
+'2018-02-01 00:00:00',
+'2018-02-01 00:00:00',
+0
+),
+
+(
+1001001,
+2,
+15,
+1,
+5,
+'2018-02-01 00:00:00',
+'2018-02-01 00:00:00',
+0
+)
+;
 
