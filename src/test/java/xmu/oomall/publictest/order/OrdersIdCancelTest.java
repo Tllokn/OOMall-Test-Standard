@@ -15,6 +15,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 /**
@@ -44,6 +45,8 @@ public class OrdersIdCancelTest {
 
         URI uri=new URI(url.replace("{id}","509"));
         HttpHeaders httpHeaders= getHttpHeaders(adtUserAccount);
+        assertNotEquals(null, httpHeaders);
+
         HttpEntity<Order> httpEntity=new HttpEntity<>(order,httpHeaders);
 
         ResponseEntity<String> responseEntity= restTemplate.exchange(uri, HttpMethod.PUT,httpEntity,String.class);
@@ -76,6 +79,8 @@ public class OrdersIdCancelTest {
 
         URI uri=new URI(url.replace("{id}","509"));
         HttpHeaders httpHeaders= getHttpHeaders(adtUserAccount);
+        assertNotEquals(null, httpHeaders);
+
         HttpEntity<Order> httpEntity=new HttpEntity<>(order,httpHeaders);
 
         ResponseEntity<String> responseEntity= restTemplate.exchange(uri, HttpMethod.PUT,httpEntity,String.class);

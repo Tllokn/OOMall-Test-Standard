@@ -101,6 +101,8 @@ public class OrdersIdTest {
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "502"));
         HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        assertNotEquals(null, httpHeaders);
+
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
@@ -131,6 +133,8 @@ public class OrdersIdTest {
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "504"));
         HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        assertNotEquals(null, httpHeaders);
+
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);

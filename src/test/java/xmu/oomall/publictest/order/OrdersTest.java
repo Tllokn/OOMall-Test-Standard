@@ -58,7 +58,7 @@ public class OrdersTest {
         String cartUrl = baseUrl +"cartService/cartItems";
         URI uri = new URI(cartUrl);
         HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
-        System.out.println("Generated httpheaders = " + httpHeaders);
+        assertNotEquals(null, httpHeaders);
 
         /**************************************************/
         //插入购物车
@@ -142,6 +142,8 @@ public class OrdersTest {
 
         uri = new URI(url);
         httpHeaders = getHttpHeaders(adtUserAccount);
+        assertNotEquals(null, httpHeaders);
+
         HttpEntity<OrderSubmitVo> orderEntity = new HttpEntity<>(orderSubmitVo, httpHeaders);
 
         response= restTemplate.exchange(uri, HttpMethod.POST, orderEntity, String.class);
@@ -192,6 +194,8 @@ public class OrdersTest {
         adtUserAccount.setUserName("7387159492");
         adtUserAccount.setPassword("123456");
         HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        assertNotEquals(null, httpHeaders);
+
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
         /*exchange方法模拟HTTP请求*/
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);

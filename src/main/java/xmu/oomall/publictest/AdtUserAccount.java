@@ -15,11 +15,11 @@ public class AdtUserAccount extends BaseAccount{
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("http://${oomall.host}:${oomall.port}/userInfoService/admin/login")
+    @Value("http://${oomall.host}:${oomall.port}/userInfoService/login")
     private String url;
 
-    private String userName;
-    private String password;
+    private String userName = "";
+    private String password = "";
 
     @Override
     protected String getUserName() {
@@ -50,5 +50,14 @@ public class AdtUserAccount extends BaseAccount{
     public void setPassword(String password) {
         this.password = password;
         this.token = "";
+    }
+
+    @Override
+    public String toString() {
+        return "AdtUserAccount{" +
+                ", url='" + url + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

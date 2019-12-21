@@ -9,6 +9,7 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import xmu.oomall.domain.AddressPo;
 import xmu.oomall.publictest.AdminAccount;
+import xmu.oomall.publictest.UserAccount;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
@@ -26,7 +27,7 @@ public class AddressTest {
     private RestTemplate restTemplate;
 
     @Autowired
-    private AdminAccount adminAccount;
+    private UserAccount userAccount;
 
 
     @Test
@@ -46,7 +47,7 @@ public class AddressTest {
         addressPo.setGmtModified(LocalDateTime.now());
 
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders(adminAccount);;
+        HttpHeaders httpHeaders = getHttpHeaders(userAccount);;
         HttpEntity httpEntity = new HttpEntity<>(addressPo, httpHeaders);
 
         ResponseEntity<String> responseEntity= restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);

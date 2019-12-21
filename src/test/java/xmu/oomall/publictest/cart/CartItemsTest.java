@@ -17,8 +17,7 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 /**
@@ -48,6 +47,7 @@ public class CartItemsTest {
         adtUserAccount.setUserName("37485876434");
         adtUserAccount.setPassword("123456");
         HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);;
+        assertNotEquals(null, httpHeaders);
 
         CartItem cartItem = new CartItem();
         cartItem.setBeCheck(false);
@@ -99,10 +99,10 @@ public class CartItemsTest {
     {
 
         URI uri = new URI(url);
-        adtUserAccount.setUserName("53130983331");
+        adtUserAccount.setUserName("20237721614");
         adtUserAccount.setPassword("123456");
-
-        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);;
+        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        assertNotEquals(null, httpHeaders);
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         /*exchange方法模拟HTTP请求*/

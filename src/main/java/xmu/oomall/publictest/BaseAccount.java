@@ -2,6 +2,7 @@ package xmu.oomall.publictest;
 
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+import xmu.oomall.util.JacksonUtil;
 import xmu.oomall.vo.LoginVo;
 
 import java.net.URI;
@@ -33,7 +34,10 @@ public abstract class BaseAccount {
         URI uri = new URI(this.getUrl());
         HttpEntity httpEntity = new HttpEntity(loginVo, httpHeaders);
         ResponseEntity<String> response = this.getRestTemplate().postForEntity(uri, httpEntity, String.class);
-        if (response.getStatusCode() == HttpStatus.OK){
+        String body = response.getBody();
+        Integer errNo = JacksonUtil.parseInteger(body, "errno");
+        if (response.getStatusCode() == HttpStatus.OK && errNo == 0){
+            System.out.println("response = " + response);
             this.token = response.getHeaders().get("authorization").get(0);
             return true;
         } else {
@@ -59,9 +63,11 @@ public abstract class BaseAccount {
      */
     public HttpHeaders createHeaderWithToken() throws URISyntaxException {
         HttpHeaders headers = this.createHeaders();
+        System.out.println("Before token = "+token);
         if (this.token == "") {
             this.getToken(headers);
         }
+        System.out.println("After token = "+token);
         if (this.token != ""){
             headers.add("authorization", this.token);
             return headers;
