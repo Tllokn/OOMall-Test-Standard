@@ -17,7 +17,6 @@ import java.math.BigDecimal;
 import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 @SpringBootTest(classes = PublicTestApplication.class)
 public class OrdersIdTest {
@@ -42,7 +41,7 @@ public class OrdersIdTest {
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "502"));
         System.out.println("adtUserAccount = "+ adtUserAccount);
-        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         /*exchange方法模拟HTTP请求*/
@@ -72,7 +71,7 @@ public class OrdersIdTest {
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "504"));
-        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         /*exchange方法模拟HTTP请求*/
@@ -100,7 +99,7 @@ public class OrdersIdTest {
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "502"));
-        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
 
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
@@ -132,7 +131,7 @@ public class OrdersIdTest {
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "504"));
-        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
 
         HttpEntity httpEntity = new HttpEntity(httpHeaders);

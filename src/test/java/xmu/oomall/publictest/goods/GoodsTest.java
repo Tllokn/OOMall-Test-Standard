@@ -20,7 +20,6 @@ import java.net.URI;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 
 @SpringBootTest(classes = PublicTestApplication.class)
@@ -69,7 +68,7 @@ public class GoodsTest {
 
         /* 设置请求头部 */
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders(adminAccount);
+        HttpHeaders httpHeaders = adminAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(good, httpHeaders);
 
         /* exchange方法模拟HTTP请求 */
@@ -113,7 +112,7 @@ public class GoodsTest {
 
         /* 设置请求头部 */
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders(noAdminAccount);
+        HttpHeaders httpHeaders = noAdminAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(good, httpHeaders);
 
         /* exchange方法模拟HTTP请求 */
@@ -152,7 +151,7 @@ public class GoodsTest {
 
         /* 设置请求头部 */
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders(userAccount);
+        HttpHeaders httpHeaders = userAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(good, httpHeaders);
 
         /* exchange方法模拟HTTP请求 */

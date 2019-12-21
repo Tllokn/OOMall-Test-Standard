@@ -16,7 +16,6 @@ import java.net.URI;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 @SpringBootTest
 public class AddressTest {
@@ -47,7 +46,7 @@ public class AddressTest {
         addressPo.setGmtModified(LocalDateTime.now());
 
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders(userAccount);;
+        HttpHeaders httpHeaders = userAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity<>(addressPo, httpHeaders);
 
         ResponseEntity<String> responseEntity= restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);

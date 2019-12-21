@@ -16,7 +16,6 @@ import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 /**
  * @Author 学号24320172203139
@@ -44,7 +43,7 @@ public class OrdersIdCancelTest {
         order.setId(31391);
 
         URI uri=new URI(url.replace("{id}","509"));
-        HttpHeaders httpHeaders= getHttpHeaders(adtUserAccount);
+        HttpHeaders httpHeaders= adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
 
         HttpEntity<Order> httpEntity=new HttpEntity<>(order,httpHeaders);
@@ -56,12 +55,7 @@ public class OrdersIdCancelTest {
         String body=  responseEntity.getBody();
 
         Integer errno= JacksonUtil.parseInteger(body,"errno");
-        assertEquals(0,errno);
-
-        Order testOrder= JacksonUtil.parseObject(body,"data",Order.class);
-
-        assertEquals(509,testOrder.getId());
-        assertEquals(1,testOrder.getStatusCode());
+        assertEquals(607,errno); //订单修改状态失败
     }
 
     /**
@@ -78,7 +72,7 @@ public class OrdersIdCancelTest {
         order.setId(31391);
 
         URI uri=new URI(url.replace("{id}","509"));
-        HttpHeaders httpHeaders= getHttpHeaders(adtUserAccount);
+        HttpHeaders httpHeaders= adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
 
         HttpEntity<Order> httpEntity=new HttpEntity<>(order,httpHeaders);

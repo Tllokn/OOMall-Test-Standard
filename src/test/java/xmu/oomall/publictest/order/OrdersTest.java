@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 
 @SpringBootTest(classes = PublicTestApplication.class)
@@ -30,7 +29,7 @@ public class OrdersTest {
     @Value("http://${oomall.host}:${oomall.port}/orderService/orders")
     String url;
 
-    @Value("http://${oomall.host}:${oomall.port}/orderService")
+    @Value("http://${oomall.host}:${oomall.port}/")
     String baseUrl;
 
     @Autowired
@@ -57,7 +56,7 @@ public class OrdersTest {
 
         String cartUrl = baseUrl +"cartService/cartItems";
         URI uri = new URI(cartUrl);
-        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
 
         /**************************************************/
@@ -141,7 +140,7 @@ public class OrdersTest {
         /**************************************************/
 
         uri = new URI(url);
-        httpHeaders = getHttpHeaders(adtUserAccount);
+        httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
 
         HttpEntity<OrderSubmitVo> orderEntity = new HttpEntity<>(orderSubmitVo, httpHeaders);
@@ -193,7 +192,7 @@ public class OrdersTest {
         URI uri = new URI(url);
         adtUserAccount.setUserName("7387159492");
         adtUserAccount.setPassword("123456");
-        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
 
         HttpEntity httpEntity = new HttpEntity(httpHeaders);

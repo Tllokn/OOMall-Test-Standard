@@ -15,9 +15,6 @@ import java.net.URI;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
-
 /**
  * @author
  */
@@ -58,7 +55,7 @@ public class AdsTest {
         ad.setGmtModified(LocalDateTime.now());
 
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders(adminAccount);
+        HttpHeaders httpHeaders = adminAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity<>(ad, httpHeaders);
 
         ResponseEntity<String> responseEntity= restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);

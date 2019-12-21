@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 /**
  * @author
@@ -44,9 +43,9 @@ public class CartItemsTest {
     public void tc_CartItems_001() throws Exception{
 
         URI uri = new URI(url);
-        adtUserAccount.setUserName("37485876434");
+        adtUserAccount.setUserName("23365454770");
         adtUserAccount.setPassword("123456");
-        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);;
+        HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
 
         CartItem cartItem = new CartItem();
@@ -99,9 +98,9 @@ public class CartItemsTest {
     {
 
         URI uri = new URI(url);
-        adtUserAccount.setUserName("20237721614");
+        adtUserAccount.setUserName("10163212949");
         adtUserAccount.setPassword("123456");
-        HttpHeaders httpHeaders = getHttpHeaders(adtUserAccount);
+        HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 

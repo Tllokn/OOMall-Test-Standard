@@ -15,7 +15,6 @@ import xmu.oomall.util.JacksonUtil;
 import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 /**
  * @author 24320172203264
@@ -42,7 +41,7 @@ public class CategoryIdTest {
     public void tc_CategoryId_001() throws Exception
     {
         URI uri = new URI(url.replace("{id}","122"));
-        HttpHeaders headers = getHttpHeaders(adminAccount);
+        HttpHeaders headers = adminAccount.createHeaderWithToken();
         HttpEntity entity = new HttpEntity(headers);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, entity, String.class);

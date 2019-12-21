@@ -20,8 +20,6 @@ import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
 import static org.junit.jupiter.api.Assertions.*;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
-
 
 @SpringBootTest(classes = PublicTestApplication.class)
 public class GoodsIdTest {
@@ -40,7 +38,7 @@ public class GoodsIdTest {
      */
     @Test
     public void tc_GoodsId_001() throws Exception{
-        URI uri = new URI(url.replace("{id}","374"));
+        URI uri = new URI(url.replace("{id}","288"));
         HttpHeaders httpHeaders = userAccount.createHeaders();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 

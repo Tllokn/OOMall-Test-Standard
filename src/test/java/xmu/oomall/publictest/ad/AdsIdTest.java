@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 
 /**
@@ -47,7 +46,7 @@ public class AdsIdTest {
         /* 设置请求头部*/
         System.out.println("url = " + url);
         URI uri = new URI(url.replace("{id}", "121"));
-        HttpHeaders httpHeaders = getHttpHeaders(adminAccount);
+        HttpHeaders httpHeaders = adminAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         ResponseEntity<String> response = this.restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
@@ -101,7 +100,7 @@ public class AdsIdTest {
 
         //设置头部
         URI uri = new URI(url.replace("{id}","123"));
-        HttpHeaders headers = getHttpHeaders(adminAccount);;
+        HttpHeaders headers = adminAccount.createHeaderWithToken();
         HttpEntity<Ad> requestUpdate = new HttpEntity<>(ad, headers);
 
         //发出http请求

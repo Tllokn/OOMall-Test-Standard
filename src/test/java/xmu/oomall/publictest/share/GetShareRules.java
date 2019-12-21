@@ -17,7 +17,6 @@ import org.springframework.http.*;
 import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 
 @SpringBootTest(classes = PublicTestApplication.class)
@@ -43,7 +42,7 @@ public class GetShareRules {
 
         /* 设置请求头部*/
         URI uri=new URI(url.replace("{id}","1006239"));
-        HttpHeaders httpHeaders = getHttpHeaders(userAccount);
+        HttpHeaders httpHeaders = userAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
 

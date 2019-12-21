@@ -15,8 +15,6 @@ import xmu.oomall.util.JacksonUtil;
 import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
-
 
 @SpringBootTest(classes = PublicTestApplication.class)
 public class TopicsTest {
@@ -47,7 +45,7 @@ public class TopicsTest {
 
         /* 设置请求头部*/
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders(adminAccount);
+        HttpHeaders httpHeaders = adminAccount.createHeaderWithToken();
         HttpEntity<Topic> httpEntity = new HttpEntity<>(topic, httpHeaders);
 
         /*exchange方法模拟HTTP请求*/
@@ -90,7 +88,7 @@ public class TopicsTest {
 
         /* 设置请求头部*/
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders(adminAccount);
+        HttpHeaders httpHeaders = adminAccount.createHeaderWithToken();
         HttpEntity<Topic> httpEntity = new HttpEntity<>(topic, httpHeaders);
 
         /*exchange方法模拟HTTP请求*/
@@ -116,7 +114,7 @@ public class TopicsTest {
         errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errno);
 
-        httpHeaders = getHttpHeaders(userAccount);
+        httpHeaders = userAccount.createHeaderWithToken();
         httpEntity = new HttpEntity<>(topic, httpHeaders);
         response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());

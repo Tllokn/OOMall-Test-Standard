@@ -7,11 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import xmu.oomall.PublicTestApplication;
-import xmu.oomall.domain.User;
 import xmu.oomall.publictest.AdtUserAccount;
 import xmu.oomall.util.JacksonUtil;
 import xmu.oomall.vo.LoginVo;
-import xmu.oomall.vo.UserRegisterVo;
 
 import java.net.URI;
 

@@ -14,7 +14,6 @@ import xmu.oomall.util.JacksonUtil;
 import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 
 /**
@@ -40,7 +39,7 @@ public class SpecialFreightTest {
     public void tc_specialFreight_001() throws Exception {
         // 设置请求头部
         URI uri = new URI(url);
-        HttpHeaders httpHeaders = getHttpHeaders(adminAccount);
+        HttpHeaders httpHeaders = adminAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         // 发出HTTP请求

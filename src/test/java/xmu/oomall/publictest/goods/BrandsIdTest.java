@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 
 @SpringBootTest(classes = PublicTestApplication.class)
 public class BrandsIdTest {
@@ -51,7 +50,7 @@ public class BrandsIdTest {
     {
         URI uri = new URI(url.replace("{id}","71"));
 
-        HttpHeaders headers = getHttpHeaders(userAccount);
+        HttpHeaders headers = userAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(headers);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
@@ -75,7 +74,7 @@ public class BrandsIdTest {
     {
         URI uri = new URI(url.replace("{id}","0"));
 
-        HttpHeaders headers = getHttpHeaders(adminAccount);
+        HttpHeaders headers = adminAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(headers);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
@@ -94,7 +93,7 @@ public class BrandsIdTest {
     {
         URI uri = new URI(url.replace("{id}","72"));
 
-        HttpHeaders headers = getHttpHeaders(userAccount);
+        HttpHeaders headers = userAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(headers);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
@@ -126,7 +125,7 @@ public class BrandsIdTest {
     {
         URI uri = new URI(url.replace("{id}","72"));
 
-        HttpHeaders headers = getHttpHeaders(adminAccount);
+        HttpHeaders headers = adminAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(headers);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
@@ -159,7 +158,7 @@ public class BrandsIdTest {
     {
         URI uri = new URI(url.replace("{id}","72"));
 
-        HttpHeaders headers = getHttpHeaders(adminAccount);
+        HttpHeaders headers = adminAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(headers);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
@@ -191,7 +190,7 @@ public class BrandsIdTest {
 
         // 设置头部，未设置登陆
         URI uri = new URI(url.replace("{id}","107"));
-        HttpHeaders headers = getHttpHeaders(userAccount);
+        HttpHeaders headers = userAccount.createHeaderWithToken();
         HttpEntity<Brand> requestUpdate = new HttpEntity<>(brand, headers);
 
         // 发出http请求
@@ -225,7 +224,7 @@ public class BrandsIdTest {
 
         // 设置头部，未设置登陆
         URI uri = new URI(url.replace("{id}","108"));
-        HttpHeaders headers = getHttpHeaders(adminAccount);
+        HttpHeaders headers = adminAccount.createHeaderWithToken();
         HttpEntity<Brand> requestUpdate = new HttpEntity<>(brand, headers);
 
         // 发出http请求
