@@ -138,18 +138,12 @@ public class OrdersIdTest {
 
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
-        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        String body = response.getBody();
-        Integer errNo = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(0, errNo);
-
         /*exchange方法模拟HTTP请求*/
-        response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         /*取得响应体*/
-        body = response.getBody();
-        errNo = JacksonUtil.parseInteger(body, "errno");
+        String body = response.getBody();
+        Integer errNo = JacksonUtil.parseInteger(body, "errno");
         assertEquals(604, errNo); //订单非法操作(查看或者操作了不属于自己的订单)
     }
 }

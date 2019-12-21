@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest(classes = PublicTestApplication.class)
 public class BrandsIdTest {
@@ -239,7 +240,7 @@ public class BrandsIdTest {
         // 比较值是否相等
         assertEquals(108, responseBrand.getId());
         assertEquals(brand.getName(), responseBrand.getName());
-        assertEquals(brand.getGmtModified(), responseBrand.getGmtModified());
+        assertNotEquals(brand.getGmtModified(), responseBrand.getGmtModified());
     }
 
 }
