@@ -44,7 +44,8 @@ public class LogsTest {
     @Test
     public void tc_Logs_001() throws Exception {
         // 设置请求头部
-        URI uri = new URI(url + "admin?adminName="+adminUserName);
+
+        URI uri = new URI(baseUrl + "admin?adminName="+adminUserName);
         System.out.println("adminUserName = " + adminUserName);
         HttpHeaders httpHeaders = adminAccount.createHeaderWithToken();
         HttpEntity httpEntity = new HttpEntity(httpHeaders);

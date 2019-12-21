@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import xmu.oomall.PublicTestApplication;
 import xmu.oomall.domain.Ad;
 import xmu.oomall.publictest.AdminAccount;
+import xmu.oomall.publictest.NoAdminAccount;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
@@ -33,6 +34,7 @@ public class AdsIdTest {
 
     @Autowired
     private AdminAccount adminAccount;
+
 
 
     /*********************************************************
@@ -129,7 +131,7 @@ public class AdsIdTest {
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         String body = response.getBody();
         Integer errNo = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(errNo, 0);
+        assertEquals(0, errNo);
         List<HashMap> adsList = JacksonUtil.parseObject(body,"data", List.class);
         assertEquals(40, adsList.size());
     }

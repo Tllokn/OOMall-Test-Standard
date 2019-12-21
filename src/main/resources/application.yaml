@@ -1,12 +1,12 @@
 oomall:
-  host: 47.97.26.168
-  port: 8899
+  host: 139.196.253.120
+  port: 8898
   user: 1940203832
   password: 123456
-  adminuser: nan
-  adminpassword: nan123
-  norightuser: oomall
-  norightpassword: oomall
+  adminuser: hi
+  adminpassword: 123456
+  norightuser: wowoto
+  norightpassword: 123456
 
 logging:
   level:
