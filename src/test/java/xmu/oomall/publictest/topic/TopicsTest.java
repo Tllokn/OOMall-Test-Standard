@@ -1,10 +1,10 @@
 package xmu.oomall.publictest.topic;
 
+import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import xmu.oomall.PublicTestApplication;
@@ -22,6 +22,9 @@ import static xmu.oomall.util.HttpRequest.getHttpHeaders;
 public class TopicsTest {
     @Value("http://${oomall.host}:${oomall.port}/topicService/topics/")
     String url;
+
+    @Value("http://${oomall.host}:${oomall.port}/topicService/topics")
+    private String baseUrl;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -118,5 +121,95 @@ public class TopicsTest {
         body = response.getBody();
         errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(650, errno); //该话题是无效话题(不在数据库里的或者逻辑删除)
+    }
+
+    /**
+     * 正确测试,需要数据库中topic的个数>1
+     * @author: 24320172203240
+     * @throws Exception
+     */
+    @org.junit.Test
+    public void getTopics_001() throws Exception{
+        /* 设置请求头部*/
+        URI uri = new URI(baseUrl+"?page=2&limit=2");
+        HttpHeaders httpHeaders = adminAccount.createHeaders();
+        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+
+        /*exchange方法模拟HTTP请求*/
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        /*取得响应体*/
+        String body = response.getBody();
+        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(0, errno);
+
+        /*assert判断*/
+        PageInfo topic_1 = JacksonUtil.parseObject(body, "data", PageInfo.class);
+        assertEquals(2, topic_1.getPageSize());
+        assertEquals(1, topic_1.getPageNum());
+    }
+
+    @Test
+    /**
+     * error limit=-2 page=2
+     * @author: 24320172203240
+     */
+    public void getTopics_002() throws Exception{
+        /* 设置请求头部*/
+        URI uri = new URI(baseUrl+"?page=2&limit=-1");
+        HttpHeaders httpHeaders = adminAccount.createHeaders();
+        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+
+        /*exchange方法模拟HTTP请求*/
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        /*取得响应体*/
+        String body = response.getBody();
+        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(650, errno);
+    }
+
+    @Test
+    /**
+     * error limit=-2 page=2
+     * @author: 24320172203240
+     */
+    public void getTopics_003() throws Exception{
+        /* 设置请求头部*/
+        URI uri  =new URI(baseUrl+"?page=-1&limit=2");
+        HttpHeaders httpHeaders = adminAccount.createHeaders();
+        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+
+        /*exchange方法模拟HTTP请求*/
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        /*取得响应体*/
+        String body = response.getBody();
+        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(650, errno);
+    }
+
+    @Test
+    /**
+     * error limit=-2 page=2
+     * @author: 24320172203240
+     */
+    public void getTopics_004() throws Exception{
+        /* 设置请求头部*/
+        URI uri = new URI(baseUrl+"?page=-2&limit=-2");
+        HttpHeaders httpHeaders = adminAccount.createHeaders();
+        HttpEntity httpEntity = new HttpEntity(httpHeaders);
+
+        /*exchange方法模拟HTTP请求*/
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        /*取得响应体*/
+        String body = response.getBody();
+        Integer errno = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(650, errno);
     }
 }
