@@ -51,7 +51,7 @@ public class OrdersTest {
         orderSubmitVo.setCartItemIds(new ArrayList<>(3));
 
         //user_id = 1
-        adtUserAccount.setUserName("4771488350");
+        adtUserAccount.setUserName("37798048497");
         adtUserAccount.setPassword("123456");
 
         String cartUrl = baseUrl +"cartService/cartItems";
@@ -190,7 +190,7 @@ public class OrdersTest {
         /*  */
 
         URI uri = new URI(url);
-        adtUserAccount.setUserName("7387159492");
+        adtUserAccount.setUserName("67302324219"); // id = 333
         adtUserAccount.setPassword("123456");
         HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
@@ -205,16 +205,16 @@ public class OrdersTest {
         Integer errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errno);
         List<HashMap> lists = JacksonUtil.parseObject(body, "data",List.class);
-        assertEquals(3, lists.size());
+        assertEquals(101, lists.size());
         Boolean[] found = {false, false, false};
         for(HashMap item : lists){
-            if (item.get("id").equals("1498") && item.get("order_sn").equals("7387159492")){
+            if (item.get("id").equals("1797") && item.get("order_sn").equals("2016110406134")){
                 found[0] = true;
             }else {
-                if (item.get("id").equals("1595") && item.get("order_sn").equals("7387159492")){
+                if (item.get("id").equals("1812") && item.get("order_sn").equals("2016110412052")){
                     found[1] = true;
                 } else {
-                    if (item.get("id").equals("19611") && item.get("order_sn").equals("2017073183998")){
+                    if (item.get("id").equals("1819") && item.get("order_sn").equals("2016110489281")){
                         found[2] = true;
                     }
                 }
