@@ -12,6 +12,9 @@ import xmu.oomall.publictest.AdminAccount;
 import xmu.oomall.util.JacksonUtil;
 
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static xmu.oomall.util.HttpRequest.getHttpHeaders;
@@ -49,12 +52,15 @@ public class AdsIdTest {
 
         ResponseEntity<String> response = this.restTemplate.exchange(uri, HttpMethod.DELETE, httpEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
-
-        response = this.restTemplate.getForEntity(url, String.class);
         String body = response.getBody();
         Integer errNo = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertEquals(0, errNo);
+
+        response = this.restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        body = response.getBody();
+        errNo = JacksonUtil.parseInteger(body, "errno");
+        assertEquals(680, errNo);
     }
 
     /**
@@ -71,10 +77,10 @@ public class AdsIdTest {
         String body = response.getBody();
         Integer errNo = JacksonUtil.parseInteger(body, "errno");
         assertEquals(response.getStatusCode(), HttpStatus.OK);
-        assertEquals(errNo, 666); //用户无操作权限
+        assertEquals(errNo, 660); //用户无操作权限
 
         //原来的对象还在
-        response = this.restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
+        response = this.restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         body = response.getBody();
         errNo = JacksonUtil.parseInteger(body, "errno");
@@ -112,16 +118,20 @@ public class AdsIdTest {
         assertEquals(ad.getName(),responseAd.getName());
         assertEquals(ad.getContent(),responseAd.getContent());
 
-        headers = adminAccount.createHeaders();
+    }
+
+    @Test
+    public void tc_adsId_004() throws URISyntaxException {
+        URI uri = new URI(url.replace("/{id}",""));
+
+        HttpHeaders headers = adminAccount.createHeaders();
         HttpEntity httpEntity = new HttpEntity(headers);
-        response = this.restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        ResponseEntity<String> response = this.restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         String body = response.getBody();
         Integer errNo = JacksonUtil.parseInteger(body, "errno");
         assertEquals(errNo, 0);
-        responseAd = JacksonUtil.parseObject(body,"data", Ad.class);
-        assertEquals(123,responseAd.getId());
-        assertEquals(ad.getName(),responseAd.getName());
-        assertEquals(ad.getContent(),responseAd.getContent());
+        List<HashMap> adsList = JacksonUtil.parseObject(body,"data", List.class);
+        assertEquals(40, adsList.size());
     }
 }

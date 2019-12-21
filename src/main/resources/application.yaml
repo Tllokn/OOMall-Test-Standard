@@ -7,3 +7,7 @@ oomall:
   adminpassword: 10086
   norightuser: nan
   norightpassword: 123456
+
+logging:
+  level:
+    org.springframework: debug
