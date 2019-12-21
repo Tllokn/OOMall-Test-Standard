@@ -1,12 +1,12 @@
 oomall:
-  host: 101.132.152.28
-  port: 3400
-  user: 55944411881
+  host: 106.15.92.5
+  port: 9527
+  user: 49404524964
   password: 123456
-  adminuser: 10086
-  adminpassword: 10086
-  norightuser: nan
-  norightpassword: 123456
+  adminuser: 123
+  adminpassword: 321
+  norightuser: 111
+  norightpassword: 222
 
 logging:
   level:

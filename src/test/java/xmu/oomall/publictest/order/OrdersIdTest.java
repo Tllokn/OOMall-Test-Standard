@@ -37,7 +37,7 @@ public class OrdersIdTest {
     @Test
     public void tc_OrdersId_001() throws Exception{
         /* 登陆 */
-        adtUserAccount.setUserName("36114409133");
+        adtUserAccount.setUserName("68780826375");
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "502"));
@@ -68,7 +68,7 @@ public class OrdersIdTest {
     @Test
     public void tc_OrdersId_002() throws Exception{
         /* 登陆 */
-        adtUserAccount.setUserName("64000302147");
+        adtUserAccount.setUserName("67621013212");
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "504"));
@@ -96,7 +96,7 @@ public class OrdersIdTest {
         /* 本条order被逻辑删除 */
         /* 设置请求头部*/
         /* 24320172203217 */
-        adtUserAccount.setUserName("64000302147");
+        adtUserAccount.setUserName("67621013212");
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "502"));
@@ -128,7 +128,7 @@ public class OrdersIdTest {
     @Test
     public void tc_OrdersId_004() throws Exception {
 
-        adtUserAccount.setUserName("64000302147");
+        adtUserAccount.setUserName("67621013212");
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
         URI uri = new URI(url.replace("{id}", "504"));
