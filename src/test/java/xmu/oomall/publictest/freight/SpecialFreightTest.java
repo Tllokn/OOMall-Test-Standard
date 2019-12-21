@@ -43,6 +43,7 @@ public class SpecialFreightTest {
         // 发出HTTP请求
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+
         // 取得响应体
         String body = response.getBody();
         Integer errno = JacksonUtil.parseInteger(body, "errno");

@@ -51,10 +51,10 @@ public class OrdersTest {
         orderSubmitVo.setCartItemIds(new ArrayList<>(3));
 
         //user_id = 1
-        adtUserAccount.setUserName("4771488350");
+        adtUserAccount.setUserName("55944411881");
         adtUserAccount.setPassword("123456");
 
-        String cartUrl = baseUrl +"cartService/cartItems";
+        String cartUrl = baseUrl + "cartService/cartItems";
         URI uri = new URI(cartUrl);
         HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
@@ -145,7 +145,7 @@ public class OrdersTest {
 
         HttpEntity<OrderSubmitVo> orderEntity = new HttpEntity<>(orderSubmitVo, httpHeaders);
 
-        response= restTemplate.exchange(uri, HttpMethod.POST, orderEntity, String.class);
+        response = restTemplate.exchange(uri, HttpMethod.POST, orderEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
 
         body=response.getBody();
@@ -164,7 +164,7 @@ public class OrdersTest {
         assertEquals(0, errNo);
         Order fetchOrder=JacksonUtil.parseObject(body,"data", Order.class);
 
-        assertEquals(retOrder.getId(),fetchOrder.getId());
+        assertEquals(retOrder.getId(), fetchOrder.getId());
         assertEquals(1,fetchOrder.getUserId());
         assertEquals(address.getProvince()+address.getCity()+address.getCounty()+address.getAddressDetail(),fetchOrder.getAddress());
         assertEquals(cartItems.size(), retOrder.getOrderItemList().size());
