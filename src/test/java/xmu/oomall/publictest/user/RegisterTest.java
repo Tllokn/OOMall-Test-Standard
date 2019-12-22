@@ -21,7 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = PublicTestApplication.class)
 public class RegisterTest {
 
-    @Value("http://${oomall.host}:${oomall.port}/userInfoService/register")
+    @Value("http://${oomall.host}:${oomall.port}/userInfoService/registe" +
+            "r")
     private String url;
 
     @Value("http://${oomall.host}:${oomall.port}/userInfoService/")
@@ -55,7 +56,7 @@ public class RegisterTest {
 
         /* 准备数据 */
         UserRegisterVo user = new UserRegisterVo();
-        user.setUsername("10086");
+        user.setUsername("9933384");
         user.setPassword("10086");
         user.setTelephone("1299988");
         user.setCode(code);
@@ -75,8 +76,7 @@ public class RegisterTest {
         assertEquals(0, errno);
 
         /* assert判断 */
-        String data = JacksonUtil.parseString(body, "data");
-        User testUser = JacksonUtil.parseObject(data, "data", User.class);
+        User testUser = JacksonUtil.parseObject(body, "data", User.class);
         assertEquals(user.getUsername(), testUser.getName());
         assertEquals(user.getTelephone(), testUser.getMobile());
 
@@ -114,7 +114,7 @@ public class RegisterTest {
 
         /* 准备数据 */
         UserRegisterVo user = new UserRegisterVo();
-        user.setUsername("10086");
+        user.setUsername("334445");
         user.setPassword("10086");
         user.setTelephone("12999887");
         user.setCode(code);
