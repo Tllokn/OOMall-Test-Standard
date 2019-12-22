@@ -59,7 +59,7 @@ public class LogsTest {
         HashMap user = (HashMap) users.get(0);
         Integer adminId = (Integer) user.get("id");
 
-        uri = new URI(url + "?adminid="+adminId);
+        uri = new URI(url + "?adminId="+adminId);
 
         // 发出HTTP请求
         response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);

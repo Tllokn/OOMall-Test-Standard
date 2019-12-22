@@ -304,7 +304,7 @@ public class OrdersTest {
 
         HttpEntity<OrderSubmitVo> orderEntity = new HttpEntity<>(orderSubmitVo, httpHeaders);
 
-        response= restTemplate.exchange(uri, HttpMethod.POST, orderEntity, String.class);
+        response = restTemplate.exchange(uri, HttpMethod.POST, orderEntity, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
 
         body=response.getBody();
