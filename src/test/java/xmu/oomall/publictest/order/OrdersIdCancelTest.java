@@ -56,7 +56,7 @@ public class OrdersIdCancelTest {
         String body=  responseEntity.getBody();
 
         Integer errno= JacksonUtil.parseInteger(body,"errno");
-        assertEquals(607,errno); //订单修改状态失败
+        assertEquals(604,errno);//订单非法操作（已经提交的订单不能取消）
     }
 
     /**
@@ -85,8 +85,7 @@ public class OrdersIdCancelTest {
         String body=  responseEntity.getBody();
 
         Integer errno= JacksonUtil.parseInteger(body,"errno");
-        assertEquals(604,errno); //订单非法操作（已经提交的订单不能取消）
-
+        assertEquals(607,errno);//订单修改状态失败
     }
 
 }

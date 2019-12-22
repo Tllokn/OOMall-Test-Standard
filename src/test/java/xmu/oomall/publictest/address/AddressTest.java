@@ -28,7 +28,10 @@ public class AddressTest {
     @Autowired
     private UserAccount userAccount;
 
-
+    /**
+     * @author Ming Qiu
+     * @throws Exception
+     */
     @Test
     public void tc_address_001() throws Exception{
         AddressPo addressPo=new AddressPo();
@@ -39,6 +42,39 @@ public class AddressTest {
         addressPo.setCountyId(33);
         addressPo.setAddressDetail("新疆维吾尔自治区乌鲁木齐市乌鲁木齐县");
         addressPo.setMobile("139463254");//错误的电话号码，只有9位（测试能不能插入成功）
+        addressPo.setPostalCode("830063");
+        addressPo.setConsignee("神无月");
+        addressPo.setBeDefault(true);
+        addressPo.setGmtCreate(LocalDateTime.now());
+        addressPo.setGmtModified(LocalDateTime.now());
+
+        URI uri = new URI(url);
+        HttpHeaders httpHeaders = userAccount.createHeaderWithToken();
+        HttpEntity httpEntity = new HttpEntity<>(addressPo, httpHeaders);
+
+        ResponseEntity<String> responseEntity= restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
+        assertEquals(HttpStatus.OK,responseEntity.getStatusCode());
+        String result=responseEntity.getBody();
+        Integer errno= JacksonUtil.parseInteger(result,"errno");
+
+        assertEquals(751,errno); //  地址新增失败
+
+    }
+
+    /**
+     * @author Ming Qiu
+     * @throws Exception
+     */
+    @Test
+    public void tc_address_002() throws Exception{
+        AddressPo addressPo=new AddressPo();
+
+        addressPo.setUserId(10);//domain中是String字段
+        addressPo.setCityId(100);
+        addressPo.setProvinceId(8);
+        addressPo.setCountyId(1055);
+        addressPo.setAddressDetail("海韵405");
+        addressPo.setMobile("13988888888");
         addressPo.setPostalCode("830063");
         addressPo.setConsignee("神无月");
         addressPo.setBeDefault(true);

@@ -7,10 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import xmu.oomall.PublicTestApplication;
-import xmu.oomall.domain.Address;
-import xmu.oomall.domain.CartItem;
-import xmu.oomall.domain.Order;
-import xmu.oomall.domain.OrderItem;
+import xmu.oomall.domain.*;
 import xmu.oomall.publictest.AdtUserAccount;
 import xmu.oomall.util.JacksonUtil;
 import xmu.oomall.vo.OrderSubmitVo;
@@ -61,7 +58,7 @@ public class OrdersTest {
 
         /**************************************************/
         //插入购物车
-        CartItem cartItem = new CartItem();
+        CartItemPo cartItem = new CartItemPo();
         cartItem.setBeCheck(false);
         cartItem.setGmtCreate(LocalDateTime.now());
         cartItem.setGmtModified(LocalDateTime.now());
@@ -69,7 +66,7 @@ public class OrdersTest {
         cartItem.setProductId(3);
 
         /* 设置请求头部 */
-        HttpEntity<CartItem> cartEntity  = new HttpEntity<>(cartItem, httpHeaders);
+        HttpEntity<CartItemPo> cartEntity  = new HttpEntity<>(cartItem, httpHeaders);
 
         /* exchange方法模拟HTTP请求 */
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, cartEntity, String.class);
