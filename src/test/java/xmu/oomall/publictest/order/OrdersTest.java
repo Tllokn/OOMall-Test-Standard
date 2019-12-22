@@ -321,6 +321,7 @@ public class OrdersTest {
         body=response.getBody();
         errNo= JacksonUtil.parseInteger(body,"errno");
         assertEquals(0, errNo);
+        System.out.println(body);
         Order fetchOrder=JacksonUtil.parseObject(body,"data", Order.class);
 
         assertEquals(retOrder.getId(),fetchOrder.getId());
