@@ -22,7 +22,7 @@ public class LogsTest {
     @Value("http://${oomall.host}:${oomall.port}/logService/logs")
     private String url;
 
-    @Value("http://${oomall.host}:${oomall.port}/")
+    @Value("http://${oomall.host}:${oomall.port}/userInfoService/")
     private String baseUrl;
 
     @Value("${oomall.adminuser}")

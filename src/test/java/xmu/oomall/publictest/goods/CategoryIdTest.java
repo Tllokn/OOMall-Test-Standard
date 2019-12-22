@@ -34,6 +34,7 @@ public class CategoryIdTest {
     private AdminAccount adminAccount;
 
     /**
+     * 删除一级分类，二级分类一并删除
      * @author Ming Qiu
      * @throws Exception
      */
@@ -47,6 +48,7 @@ public class CategoryIdTest {
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, entity, String.class);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         String result = responseEntity.getBody();
+        System.out.println(result);
         Integer errno = JacksonUtil.parseInteger(result,"errno");
         assertEquals(0,errno);
 
@@ -54,30 +56,22 @@ public class CategoryIdTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         result = responseEntity.getBody();
         errno = JacksonUtil.parseInteger(result,"errno");
-        assertEquals(804, errno);
+        assertEquals(804, errno); //该分类不存在
 
         uri = new URI(url.replace("{id}","123"));
         responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         result = responseEntity.getBody();
         errno = JacksonUtil.parseInteger(result,"errno");
-        assertEquals(0, errno);
-        GoodsCategoryPo categoryPo = JacksonUtil.parseObject(result, "data", GoodsCategoryPo.class);
-        assertEquals(123, categoryPo.getId());
-        assertEquals("大师原作", categoryPo.getName());
-        assertEquals(0, categoryPo.getPid());
+        assertEquals(804, errno); //该分类不存在
+
 
         uri = new URI(url.replace("{id}","124"));
         responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         result = responseEntity.getBody();
         errno = JacksonUtil.parseInteger(result,"errno");
-        assertEquals(0, errno);
-        categoryPo = JacksonUtil.parseObject(result, "data", GoodsCategoryPo.class);
-        assertEquals(124, categoryPo.getId());
-        assertEquals("艺术衍生品", categoryPo.getName());
-        assertEquals(0, categoryPo.getPid());
-
+        assertEquals(804, errno); //该分类不存在
     }
 
 }

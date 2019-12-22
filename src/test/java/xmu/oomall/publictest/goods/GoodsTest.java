@@ -146,7 +146,7 @@ public class GoodsTest {
         good.setBrandId(119);
         good.setWeight(new BigDecimal(100.05));
         good.setVolume("500ml");
-        good.setSpecialFreightId(0);
+        good.setSpecialFreightId(1001000);
         good.setBeSpecial(false);
         good.setBeDeleted(false);
 

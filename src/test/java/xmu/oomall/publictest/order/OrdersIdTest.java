@@ -100,7 +100,7 @@ public class OrdersIdTest {
         adtUserAccount.setUserName("18589301331"); //id = 60
         adtUserAccount.setPassword("123456");
         /* 设置请求头部*/
-        URI uri = new URI(url.replace("{id}", "502"));
+        URI uri = new URI(url.replace("{id}", "459"));
         HttpHeaders httpHeaders = adtUserAccount.createHeaderWithToken();
         assertNotEquals(null, httpHeaders);
 
