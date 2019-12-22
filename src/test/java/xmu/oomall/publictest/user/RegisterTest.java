@@ -56,7 +56,7 @@ public class RegisterTest {
 
         /* 准备数据 */
         UserRegisterVo user = new UserRegisterVo();
-        user.setUsername("993843333");
+        user.setUsername("99333333384");
         user.setPassword("10086");
         user.setTelephone("1299988");
         user.setCode(code);
