@@ -1,12 +1,12 @@
 oomall:
-  host: 139.196.253.120
-  port: 34000
-  user: 34901358312
+  host: 47.100.32.48
+  port: 8400
+  user: 55944411881
   password: 123456
-  adminuser: wowoto
-  adminpassword: 123456
-  norightuser: root1
-  norightpassword: 10086
+  adminuser: admin1
+  adminpassword: admin1
+  norightuser: 1
+  norightpassword: 2
 
 spring:
   datasource:
