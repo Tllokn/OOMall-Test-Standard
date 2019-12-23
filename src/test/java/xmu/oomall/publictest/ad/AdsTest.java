@@ -15,6 +15,7 @@ import java.net.URI;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 /**
  * @author
  */
@@ -51,8 +52,8 @@ public class AdsTest {
         ad.setBeEnabled(true);
         ad.setStartTime(a);
         ad.setEndTime(a.plusDays(7));
-        ad.setGmtCreate(LocalDateTime.now());
-        ad.setGmtModified(LocalDateTime.now());
+        ad.setGmtCreate(a);
+        ad.setGmtModified(a);
 
         URI uri = new URI(url);
         HttpHeaders httpHeaders = adminAccount.createHeaderWithToken();
@@ -70,6 +71,8 @@ public class AdsTest {
         assertEquals(ad.getName(),testAd.getName());
         assertEquals(ad.getContent(),testAd.getContent());
         assertEquals(ad.getStartTime(),testAd.getStartTime());
+        assertNotEquals(ad.getGmtCreate(),testAd.getGmtCreate());
+        assertNotEquals(ad.getGmtCreate(),testAd.getGmtCreate());
     }
 
     /**
