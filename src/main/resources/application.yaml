@@ -1,0 +1,13 @@
+oomall:
+  host: 106.15.92.5
+  port: 9527
+  user: 1940203832
+  password: 123456
+  adminuser: nan123
+  adminpassword: 321
+  norightuser: 111
+  norightpassword: 222
+
+logging:
+  level:
+    org.springframework: info
