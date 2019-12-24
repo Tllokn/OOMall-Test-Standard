@@ -58,7 +58,7 @@ public class GetCategoryTest {
     @Test
     //    正确测试
     //    24320172203116
-    public void getBrands_001() throws Exception {
+    public void getCategory_001() throws Exception {
         /* 设置请求头部*/
         URI uri = new URI(url);
         HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
@@ -82,7 +82,7 @@ public class GetCategoryTest {
     @Test
     //error limit=-2 page=1
     //    24320172203116
-    public void getBrands_002() throws Exception {
+    public void getCategory_002() throws Exception {
         /* 设置请求头部*/
         URI uri = new URI(url2);
         HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
@@ -103,7 +103,7 @@ public class GetCategoryTest {
     @Test
     //error limit=1 page=-2
     //    24320172203116
-    public void getBrands_003() throws Exception {
+    public void getCategory_003() throws Exception {
         /* 设置请求头部*/
         URI uri = new URI(url3);
         HttpHeaders httpHeaders = testRestTemplate.headForHeaders(uri);
