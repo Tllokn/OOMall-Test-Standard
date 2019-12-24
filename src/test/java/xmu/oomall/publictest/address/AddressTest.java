@@ -339,48 +339,7 @@ public class AddressTest {
     }
 
 
-    /**
-     * @description 更新地址
-     * @author 24320172203255
-     */
-    @Test
-    public void tc_address_012() throws Exception{
-        // 准备要更新的数据
-        AddressPo addressPo= new AddressPo();
-        addressPo.setUserId(10);//domain中是String字段
-        addressPo.setCityId(100);
-        addressPo.setProvinceId(22);
-        addressPo.setCountyId(33);
-        addressPo.setAddressDetail("海韵405");
-        addressPo.setMobile("13988888888");
-        addressPo.setPostalCode("009988");
-        addressPo.setConsignee("神无日");
-        addressPo.setBeDefault(true);
-        addressPo.setGmtModified(LocalDateTime.now());
 
-        // 设置头部
-        URI uri = new URI(url+"/1");
-        HttpHeaders headers = userAccount.createHeaderWithToken();
-        HttpEntity httpEntity = new HttpEntity(headers);
-
-        // 发出http请求
-        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.PUT, httpEntity, String.class);
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-
-        /*取得响应体*/
-        String body = responseEntity.getBody();
-        Integer errno = JacksonUtil.parseInteger(body, "errno");
-        assertEquals(0, errno);
-
-        // 取出返回的body
-        AddressPo responseAddress = JacksonUtil.parseObject(responseEntity.getBody(), "data", AddressPo.class);
-
-        // 比较值是否相等
-        assertEquals(1, responseBrand.getId());
-        assertEquals(addressPo.getConsignee(), responseAddress.getConsignee());
-        assertNotEquals(addressPo.getGmtModified(), responseAddress.getGmtModified());
-
-    }
 
     /**
      * @description 查看地址详情，成功情况
