@@ -75,7 +75,6 @@ public class DefaultPieceFreightTest {
         defaultPieceFreightPo.setDestination("{\"dest\":[1,2]}");
         defaultPieceFreightPo.setGmtModified(LocalDateTime.now());
         defaultPieceFreightPo.setGmtCreate(LocalDateTime.now());
-        defaultPieceFreightPo.setRequireTime("次日");
         defaultPieceFreightPo.setUnitRate(UnitRate);
 
 
@@ -109,7 +108,6 @@ public class DefaultPieceFreightTest {
         defaultPieceFreightPo.setDestination("{\"dest\":[1,2]}");
         defaultPieceFreightPo.setGmtModified(LocalDateTime.now());
         defaultPieceFreightPo.setGmtCreate(LocalDateTime.now());
-        defaultPieceFreightPo.setRequireTime("次日");
         defaultPieceFreightPo.setUnitRate(UnitRate);
 
 
