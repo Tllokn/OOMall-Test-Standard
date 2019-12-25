@@ -161,7 +161,7 @@ public class Presale {
         Integer errno = JacksonUtil.parseInteger(body, "errno");
         assertEquals(0, errno);
 
-        /*再次请求，看能否获取到，应该是可以获取不到的*/
+        /*再次请求，看能否获取到，应该是获取不到的*/
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         String body_2 = response.getBody();

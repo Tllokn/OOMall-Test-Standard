@@ -296,11 +296,5 @@ public class Groupon {
         String body1 = response1.getBody();
         Integer errno1 = JacksonUtil.parseInteger(body, "errno");
         assertEquals(722, errno);
-
-        /* assert判断 */
-//        GrouponRulePo testGroupon = JacksonUtil.parseObject(body, "data", GrouponRulePo.class);
-//        assertEquals(testGroupon.getId(), testGroupon.getId());
-//        assertEquals(true,testGroupon.getStatusCode());
-//        assertEquals(false,testGroupon.getBeDeleted());
     }
 }
