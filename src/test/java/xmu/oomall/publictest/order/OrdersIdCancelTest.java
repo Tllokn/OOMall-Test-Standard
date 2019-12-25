@@ -17,11 +17,6 @@ import java.net.URISyntaxException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-/**
- * @a
- * uthor 学号24320172203139
- * @create 2019/12/16 13:22
- */
 @SpringBootTest(classes = PublicTestApplication.class)
 public class OrdersIdCancelTest {
 
@@ -34,6 +29,10 @@ public class OrdersIdCancelTest {
     @Autowired
     private AdtUserAccount adtUserAccount;
 
+    /**
+     * @author 学号24320172203139
+     * @create 2019/12/16 13:22
+     */
     @Test
     public void tc_OrdersIdCancel_001() throws URISyntaxException {
 
